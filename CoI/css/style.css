@@ -1,0 +1,33 @@
+html, body {
+	height: 100%;
+	font-family: "Poppins", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background: #6d6c6c; /* fallback for old browsers */
+	background: -webkit-linear-gradient(right, #b3bdf7,#ffffff );
+	background: -moz-linear-gradient(right, #b3bdf7, #ffffff );
+	background: -o-linear-gradient(right ,#b3bdf7, #ffffff );
+	background: linear-gradient(to left, #b3bdf7, #ffffff );
+
+}
+
+
+
+
+
+
+
+
+
+/*---------------------
+Admin Section
+-----------------------*/
+
+.wrapper-table {
+	margin-top:100px;
+	margin-bottom: 100px;
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
