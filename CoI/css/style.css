@@ -3,11 +3,59 @@ html, body {
 	font-family: "Poppins", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	background: #6d6c6c; /* fallback for old browsers */
-	background: -webkit-linear-gradient(right, #b3bdf7,#ffffff );
-	background: -moz-linear-gradient(right, #b3bdf7, #ffffff );
-	background: -o-linear-gradient(right ,#b3bdf7, #ffffff );
-	background: linear-gradient(to left, #b3bdf7, #ffffff );
+	background: linear-gradient(to bottom right, #4c60e0, #aeb7f5 );
 
+}
+
+
+.project-table {
+	border-radius: 1rem;
+	background-color: white;
+	text-align: center;
+}
+
+th {
+	background-color:#5221b5;
+	border-color: black;
+	color:white;
+}
+
+#th-first {
+		border-radius: 16px 0px 0px 0px;
+}
+
+#th-last {
+		border-radius: 0px 16px 0px 0px;
+}
+
+
+.idinput {
+border-radius: 1rem;
+border-color: white;
+border-width:0;
+text-align:center;
+}
+
+input:focus {
+	outline:none;
+}
+
+::placeholder {
+	color:lightgray;
+}
+
+
+.submit-button {
+	border-radius: 1rem;
+	border-width:0;
+	text-align:center;
+	float:right;
+	color:white;
+	background: #9433b8;
+	padding:8px;
+	padding-right: 40px;
+	padding-left: 40px;
+	font-size:80%;
 }
 
 
@@ -30,4 +78,3 @@ Admin Section
 	margin-right:auto;
 
 }
-
