@@ -7,7 +7,6 @@ include('connect.php');
 <div class="wrapper-table">
     <div class="page-header clearfix">
         <h2 class="pull-left">Projects</h2>
-        <a href="create_project.php" class="btn btn-success pull-right">Add New Project</a>
     </div>
     <?php
 
@@ -17,15 +16,15 @@ include('connect.php');
     $sql = "SELECT * FROM projects";
     if ($result = mysqli_query($conn, $sql)) {
         if (mysqli_num_rows($result) > 0) {
-            echo  "<table id='projects' class='table table-striped table-bordered table-sm' cellspacing='0' width='100%'>";
+            echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
             echo "<thead>";
             echo "<tr>";
-            echo "<th class='th-sm'>Project ID</th>";
+            echo "<th class='th-sm' id ='th-first' >Project ID</th>";
             echo "<th class='th-sm'>Project Name</th>";
             echo "<th class='th-sm'>Project Date</th>";
             echo "<th class='th-sm'>Project Description</th>";
             echo "<th class='th-sm'>Public Servants</th>";
-            echo "<th class='th-sm' style='width: 5%'>Action</th>";
+            echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -43,7 +42,7 @@ include('connect.php');
                 echo "</td>";
                 echo "</tr>";
             }
-            echo "</tbody>";
+            /*echo "</tbody>";
             echo "<thead>";
             echo "<tr>";
             echo "<th>Project ID</th>";
@@ -53,7 +52,7 @@ include('connect.php');
             echo "<th>Public Servants</th>";
             echo "<th>Action</th>";
             echo "</tr>";
-            echo "</thead>";
+            echo "</thead>";*/
             echo "</table>";
             // Free result set
             mysqli_free_result($result);
@@ -63,7 +62,7 @@ include('connect.php');
     } else {
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
     }
-
+    echo "<a href='create_project.php' class='submit-button'>Add New Project</a>";
     // Close connection
     mysqli_close($conn);
     ?>
