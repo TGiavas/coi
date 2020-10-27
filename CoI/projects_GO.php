@@ -7,7 +7,7 @@ include('connect.php');
 <div class="wrapper-table">
     <div class="page-header clearfix">
         <h2 class="pull-left">Projects</h2>
-        <a href="create_user.php" class="btn btn-success pull-right">Add New Project</a>
+        <a href="create_project.php" class="btn btn-success pull-right">Add New Project</a>
     </div>
     <?php
 
