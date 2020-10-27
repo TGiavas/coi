@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2020 at 12:29 PM
+-- Generation Time: Oct 27, 2020 at 01:48 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `projects` (
   `project_id` int(11) NOT NULL,
   `project_name` varchar(255) NOT NULL,
-  `project_date` date NOT NULL,
+  `project_date` date NOT NULL DEFAULT current_timestamp(),
   `project_desc` varchar(1000) NOT NULL,
   `public_servants` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,12 +41,30 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`project_id`, `project_name`, `project_date`, `project_desc`, `public_servants`) VALUES
-(1, 'Project 1', '0000-00-00', 'asdf', 'asdf'),
-(1, 'Project 1', '0000-00-00', 'asdf', 'asdf'),
-(2, 'project 2', '0000-00-00', 'project 2', 'asdfasdf'),
-(2, 'project 2', '0000-00-00', 'project 2', 'asdfasdf'),
-(3, 'project 3', '0000-00-00', 'asdfasd', 'asdfasdf'),
-(3, 'project 3', '0000-00-00', 'asdfasd', 'asdfasdf');
+(1, 'Project 1', '2020-10-27', '', 'sadf'),
+(2, '2', '2020-10-27', '', 'adfgsdfgsdfg'),
+(3, 'asdfasdf', '2020-10-27', '', 'asdfdasdfsadf'),
+(4, 'asdfasf', '2020-10-27', 'desc', 'sdfasdf');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `projects`
+--
+ALTER TABLE `projects`
+  ADD PRIMARY KEY (`project_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `projects`
+--
+ALTER TABLE `projects`
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
