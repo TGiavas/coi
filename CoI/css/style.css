@@ -1,9 +1,7 @@
 html, body {
 	height: 100%;
 	font-family: "Poppins", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	background: #6d6c6c; /* fallback for old browsers */
-	background: linear-gradient(to bottom right, #4c60e0, #aeb7f5 );
+	background-image: url("../Background.png");
 
 }
 
@@ -65,4 +63,3 @@ input:focus {
 	padding-left: 40px;
 	font-size:80%;
 }
-
