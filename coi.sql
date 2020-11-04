@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2020 at 01:53 PM
+-- Generation Time: Nov 04, 2020 at 02:02 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -52,7 +52,8 @@ INSERT INTO `conflicts` (`project_id`, `ps_id`, `ps_name`, `project_name`, `coi_
 CREATE TABLE `firm_stakeholder` (
   `stakeholder_AFM` int(9) NOT NULL,
   `stakeholder_name` varchar(20) NOT NULL,
-  `stakeholder_firm` varchar(20) NOT NULL
+  `stakeholder_firm` varchar(20) NOT NULL,
+  `stakeholder_role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
