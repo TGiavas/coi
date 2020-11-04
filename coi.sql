@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2020 at 01:43 PM
+-- Generation Time: Nov 04, 2020 at 01:53 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -87,11 +87,25 @@ INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `pro
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ps_projects`
+--
+
+CREATE TABLE `ps_projects` (
+  `ps_AFM` int(9) NOT NULL,
+  `project_id` int(12) NOT NULL,
+  `ps_name` varchar(20) NOT NULL,
+  `project_name` varchar(20) NOT NULL,
+  `ps_role` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `public_servants`
 --
 
 CREATE TABLE `public_servants` (
-  `ps_id` int(12) NOT NULL,
+  `ps_AFM` int(9) NOT NULL,
   `ps_name` varchar(50) NOT NULL,
   `ps_role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -100,7 +114,7 @@ CREATE TABLE `public_servants` (
 -- Dumping data for table `public_servants`
 --
 
-INSERT INTO `public_servants` (`ps_id`, `ps_name`, `ps_role`) VALUES
+INSERT INTO `public_servants` (`ps_AFM`, `ps_name`, `ps_role`) VALUES
 (1, 'John Smit', 'overseer');
 
 -- --------------------------------------------------------
@@ -143,10 +157,17 @@ ALTER TABLE `projects`
   ADD KEY `project_id` (`project_id`);
 
 --
+-- Indexes for table `ps_projects`
+--
+ALTER TABLE `ps_projects`
+  ADD PRIMARY KEY (`ps_AFM`,`project_id`),
+  ADD KEY `project_id` (`project_id`);
+
+--
 -- Indexes for table `public_servants`
 --
 ALTER TABLE `public_servants`
-  ADD PRIMARY KEY (`ps_id`);
+  ADD PRIMARY KEY (`ps_AFM`);
 
 --
 -- Indexes for table `stakeholder_projects`
@@ -166,12 +187,6 @@ ALTER TABLE `projects`
   MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `public_servants`
---
-ALTER TABLE `public_servants`
-  MODIFY `ps_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- Constraints for dumped tables
 --
 
@@ -180,7 +195,14 @@ ALTER TABLE `public_servants`
 --
 ALTER TABLE `conflicts`
   ADD CONSTRAINT `conflicts_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_id`) REFERENCES `public_servants` (`ps_ID`);
+  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_id`) REFERENCES `public_servants` (`ps_AFM`);
+
+--
+-- Constraints for table `ps_projects`
+--
+ALTER TABLE `ps_projects`
+  ADD CONSTRAINT `ps_projects_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
+  ADD CONSTRAINT `ps_projects_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `public_servants` (`ps_AFM`);
 
 --
 -- Constraints for table `stakeholder_projects`
