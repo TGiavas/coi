@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2020 at 01:07 PM
+-- Generation Time: Nov 05, 2020 at 03:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -54,6 +54,15 @@ CREATE TABLE `firm_project` (
   `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `firm_project`
+--
+
+INSERT INTO `firm_project` (`firm_name`, `project_id`) VALUES
+('test', 1),
+('test', 9),
+('test', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -76,8 +85,17 @@ CREATE TABLE `firm_stakeholder` (
   `stakeholder_AFM` int(9) NOT NULL,
   `stakeholder_name` varchar(20) NOT NULL,
   `stakeholder_firm` varchar(20) NOT NULL,
-  `stakeholder_role` varchar(20) NOT NULL
+  `stakeholder_role` varchar(20) NOT NULL,
+  `project_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `firm_stakeholder`
+--
+
+INSERT INTO `firm_stakeholder` (`stakeholder_AFM`, `stakeholder_name`, `stakeholder_firm`, `stakeholder_role`, `project_id`) VALUES
+(123456788, 'A', 'test', 'A', 1),
+(123456789, 'adsasda', 'test', 'qweq', 0);
 
 -- --------------------------------------------------------
 
@@ -168,6 +186,12 @@ ALTER TABLE `conflicts`
   ADD KEY `project_id_2` (`project_id`);
 
 --
+-- Indexes for table `firm_project`
+--
+ALTER TABLE `firm_project`
+  ADD KEY `project_id` (`project_id`);
+
+--
 -- Indexes for table `firm_stakeholder`
 --
 ALTER TABLE `firm_stakeholder`
@@ -220,6 +244,12 @@ ALTER TABLE `projects`
 ALTER TABLE `conflicts`
   ADD CONSTRAINT `conflicts_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
   ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_id`) REFERENCES `public_servants` (`ps_AFM`);
+
+--
+-- Constraints for table `firm_project`
+--
+ALTER TABLE `firm_project`
+  ADD CONSTRAINT `firm_project_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
 
 --
 -- Constraints for table `ps_projects`
