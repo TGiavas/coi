@@ -1,8 +1,10 @@
 html, body {
 	height: 100%;
 	font-family: "Poppins", sans-serif;
-	background-image: url("../Background.png");
+}
 
+body {
+	background-image: url("../Background.png");
 }
 
 .wrapper-table {
@@ -35,7 +37,7 @@ th {
 }
 
 
-.idinput {
+.idInput {
 border-radius: 1rem;
 border-color: white;
 border-width:0;

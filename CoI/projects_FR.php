@@ -1,10 +1,71 @@
-<?php include('header.php');
+<?php
+error_reporting(0);
+include('header.php');
 include('connect.php');
+
+$project_id = $_POST['idInput'];
+
+$sql = "INSERT INTO firm_project(firm_name, project_id) VALUES ('test', '$project_id')";
+$sqlDupe = "SELECT * FROM firm_project WHERE project_id = '$project_id' AND firm_name = 'test'";
+$sqlExists = "SELECT * FROM projects WHERE project_id = '$project_id'";
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  //Checks if application is a duplicate
+  if ($stmt = mysqli_prepare($conn, $sqlDupe)) {
+    if(mysqli_stmt_execute($stmt)){
+      mysqli_stmt_store_result($stmt);
+      if(mysqli_stmt_num_rows($stmt) > 0){
+        echo "Already applied for this project";
+      } else {
+        mysqli_stmt_close($stmt);
+        //Checks if the project exists
+        if ($stmt = mysqli_prepare($conn, $sqlExists)) {
+          if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_store_result($stmt);
+            if(mysqli_stmt_num_rows($stmt) > 0){
+              //Adds application to the firm_project table.
+              if ($conn->query($sql) === TRUE) {
+                echo "Applied successfully";
+              } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+              }
+            } else {
+              echo "Project doesn't exist";
+            }
+          }
+        } else {
+          echo "Oops! Something went wrong. Please try again later.";
+        }
+        mysqli_stmt_close($stmt);
+      }
+    }
+  }
+}
+
 ?>
 
 <html>
 
 <body>
+
+<script>
+  if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
+
+
+  function doesntExist() {
+    alert("Project doesn't exist.");
+  }
+
+  function alreadyApplied() {
+    alert("You have already applied for this project");
+  }
+</script>
+
 <div class="wrapper-table">
     <div class="page-header clearfix">
         <h2 class="pull-left">Projects</h2>
@@ -69,7 +130,7 @@ include('connect.php');
     echo "<center>";
     echo "<h5 style='color:white'>Enter the Project ID you want to apply for</h5>";
     echo "<br>";
-    echo "<input type='text' placeholder='e.g. #3828' name='apply' class='idinput'>";
+    echo "<input type='text' placeholder='e.g. #3828' name='idInput' class='idInput' required>";
     echo "</center>";
     echo "<input type='submit' value='Apply' name='apply' class='submit-button'>" ;
     echo "</form>";

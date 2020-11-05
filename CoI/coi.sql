@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2020 at 02:02 PM
+-- Generation Time: Nov 05, 2020 at 01:07 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -42,6 +42,29 @@ CREATE TABLE `conflicts` (
 
 INSERT INTO `conflicts` (`project_id`, `ps_id`, `ps_name`, `project_name`, `coi_description`) VALUES
 (8, 1, 'John Smith', 'Public Road', 'Wife is on the firm board');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `firm_project`
+--
+
+CREATE TABLE `firm_project` (
+  `firm_name` varchar(50) NOT NULL,
+  `project_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `firm_representatives`
+--
+
+CREATE TABLE `firm_representatives` (
+  `fr_AFM` int(9) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `firm_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
