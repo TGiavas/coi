@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $project_end_date = $input_project_end_date;
     }
-    
+
     // Validate project_des
     $input_project_desc = trim($_POST["project_desc"]);
     if (empty($input_project_desc)) {
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_project_start_date = $project_start_date;
             $param_project_end_date = $project_end_date;
             $param_project_desc = $project_desc;
-            
+
 
 
             // Attempt to execute the prepared statement
@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <span class="help-block"><?php echo $project_desc_err; ?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-default">Cancel</a>
+                        <a href="projects_GO.php" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <span class="help-block"><?php echo $project_id_err; ?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-default">Cancel</a>
+                        <a href="projects_FR.php" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div>
