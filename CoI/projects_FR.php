@@ -1,9 +1,3 @@
-<style>
-
-</style>
-
-
-
 <?php
 error_reporting(0);
 include('header.php');
@@ -137,6 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "</form>";
     //Table of projects the firm has applied for
     ?>
+    
   </div>
 </div>
 
@@ -239,8 +234,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 
-</body>
-</html>
 
 <script>
   function openTab(evt, tabName) {
@@ -265,7 +258,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 </script>
 
+
 <script>
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
 </script>
+
+
+
+<?php include('footer.php') ?>
+<script>
+    $(document).ready(function() {
+        $('#projects').DataTable();
+        $('#firm_projects').DataTable();
+        $('#stakeholders').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+
+</body>
+
+</html>
