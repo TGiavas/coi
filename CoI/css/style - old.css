@@ -1,0 +1,105 @@
+html, body {
+	height: 100%;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	background-image: url("../Background.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.wrapper-table {
+	margin-top:100px;
+	margin-bottom: 100px;
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+.project-table {
+	border-radius: 1rem;
+	background-color: white;
+	text-align: center;
+}
+
+th {
+	background-color:#5221b5;
+	border-color: black;
+	color:white;
+}
+
+#th-first {
+		border-radius: 16px 0px 0px 0px;
+}
+
+#th-last {
+		border-radius: 0px 16px 0px 0px;
+}
+
+
+.idInput {
+border-radius: 1rem;
+border-color: white;
+border-width:0;
+text-align:center;
+}
+
+input:focus {
+	outline:none;
+}
+
+::placeholder {
+	color:lightgray;
+}
+
+
+.submit-button {
+	border-radius: 1rem;
+	border-width:0;
+	text-align:center;
+	float:right;
+	color:white;
+	background: #9433b8;
+	padding:8px;
+	padding-right: 40px;
+	padding-left: 40px;
+	font-size:80%;
+}
+
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+	background-color: #5221b5;
+
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+	background-color: inherit;
+	color:white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #573c8b;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #9084a8;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+  }
