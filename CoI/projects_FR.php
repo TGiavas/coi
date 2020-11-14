@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "</form>";
     //Table of projects the firm has applied for
     ?>
-    
+
   </div>
 </div>
 

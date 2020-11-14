@@ -1,6 +1,6 @@
 html, body {
 	height: 100%;
-	font-family: "Poppins", sans-serif;
+	font-family: Segoe UI;
 }
 
 body {
@@ -26,7 +26,7 @@ body {
 }
 
 th {
-	background-color:#5221b5;
+	background-color:#362F4B;
 	border-color: black;
 	color:white;
 }
@@ -62,7 +62,7 @@ input:focus {
 	text-align:center;
 	float:right;
 	color:white;
-	background: #9433b8;
+	background-color: #8A30E1;
 	padding:8px;
 	padding-right: 40px;
 	padding-left: 40px;
@@ -72,8 +72,13 @@ input:focus {
 .tablinks {
 	background-color: Transparent;
 	background-repeat:no-repeat;
+	color: white;
 	border: none;
 	cursor:pointer;
 	overflow: hidden;
 	outline:none;
+}
+
+.tab {
+	background-color: rgba(0, 0, 0, 0.692);
 }
