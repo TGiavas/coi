@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2020 at 03:15 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Nov 14, 2020 at 05:20 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -36,13 +35,6 @@ CREATE TABLE `conflicts` (
   `coi_description` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `conflicts`
---
-
-INSERT INTO `conflicts` (`project_id`, `ps_id`, `ps_name`, `project_name`, `coi_description`) VALUES
-(8, 1, 'John Smith', 'Public Road', 'Wife is on the firm board');
-
 -- --------------------------------------------------------
 
 --
@@ -59,9 +51,8 @@ CREATE TABLE `firm_project` (
 --
 
 INSERT INTO `firm_project` (`firm_name`, `project_id`) VALUES
-('test', 1),
-('test', 9),
-('test', 3);
+('test', 10),
+('test', 15);
 
 -- --------------------------------------------------------
 
@@ -86,7 +77,7 @@ CREATE TABLE `firm_stakeholder` (
   `stakeholder_name` varchar(20) NOT NULL,
   `stakeholder_firm` varchar(20) NOT NULL,
   `stakeholder_role` varchar(20) NOT NULL,
-  `project_id` int(50) NOT NULL
+  `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -94,8 +85,9 @@ CREATE TABLE `firm_stakeholder` (
 --
 
 INSERT INTO `firm_stakeholder` (`stakeholder_AFM`, `stakeholder_name`, `stakeholder_firm`, `stakeholder_role`, `project_id`) VALUES
-(123456788, 'A', 'test', 'A', 1),
-(123456789, 'adsasda', 'test', 'qweq', 0);
+(133245567, 'Giorgos Mitrou', 'test', 'Technical overseer', 15),
+(166235765, 'Kostas Pandazopoulos', 'test', 'Firm Shareholder', 15),
+(543234111, 'Takis Karatzis', 'test', 'Firm Shareholder', 15);
 
 -- --------------------------------------------------------
 
@@ -116,15 +108,16 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `project_end_date`, `project_desc`) VALUES
-(1, 'Project 1', '2020-10-27', '0000-00-00', ''),
-(2, '2', '2020-10-27', '0000-00-00', ''),
-(3, 'asdfasdf', '2020-10-27', '0000-00-00', ''),
-(4, 'asdfasf', '2020-10-27', '0000-00-00', 'desc'),
-(5, 'asdfasdfsed', '0000-00-00', '2020-10-26', '2020-11-12'),
-(6, 'test project', '0000-00-00', '2020-11-10', '2020-11-26'),
-(7, 'asdf', '2020-11-03', '2020-11-18', 'asdfasdfsdf'),
-(8, 'Public Road', '2020-11-04', '2020-11-12', 'Road'),
-(9, 'Egnatia Odos', '2020-11-11', '2020-11-27', 'dromos sti makedonia');
+(10, 'Egnatia Odos', '2020-11-12', '2020-12-23', 'Public Road'),
+(11, 'Megalos Peripatos', '2020-11-13', '2020-12-23', 'Build sidewalks in Athens center'),
+(12, 'E-gov', '2020-11-19', '2021-01-20', 'Create website with government services'),
+(13, '5G network', '2020-12-23', '2021-02-23', 'Update telecommunications network'),
+(14, 'Asphalt paving in Daphne', '2021-02-15', '2021-03-16', 'Pave with asphalt roads in dimos Daphne'),
+(15, 'Traffic lights in Leoforos Kifisias', '2020-11-10', '2021-01-27', 'Add new traffic lights in Leoforos Kifisias'),
+(16, 'Ethniki Odos Athinon Patron', '2021-04-01', '2021-06-29', 'Create new national road network'),
+(17, 'Add new telephone lines', '2020-11-21', '2021-02-24', 'Installation of new telephone lines in Marousi Attiki'),
+(18, 'Paint benches', '2020-11-11', '2021-01-13', 'Bench painting in Cholargos Attiki'),
+(19, 'New public road', '2020-11-20', '2021-01-27', 'New public road in Platanos village');
 
 -- --------------------------------------------------------
 
@@ -195,7 +188,8 @@ ALTER TABLE `firm_project`
 -- Indexes for table `firm_stakeholder`
 --
 ALTER TABLE `firm_stakeholder`
-  ADD PRIMARY KEY (`stakeholder_AFM`);
+  ADD PRIMARY KEY (`stakeholder_AFM`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `projects`
@@ -232,7 +226,7 @@ ALTER TABLE `stakeholder_projects`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
@@ -250,6 +244,12 @@ ALTER TABLE `conflicts`
 --
 ALTER TABLE `firm_project`
   ADD CONSTRAINT `firm_project_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+
+--
+-- Constraints for table `firm_stakeholder`
+--
+ALTER TABLE `firm_stakeholder`
+  ADD CONSTRAINT `firm_stakeholder_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
 
 --
 -- Constraints for table `ps_projects`
