@@ -1,0 +1,111 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  font-family: Segoe UI;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: white;
+  background: none;
+}
+
+::selection {
+  color: white;
+  background: none;
+}
+
+body{
+  background-image: url("../assets/Background.png");
+  background-attachment: fixed;
+}
+
+.flex-container {
+  padding: 0;
+
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+
+  background-color: none;
+}
+
+.flex-item-left {
+background-color: rgba(0, 0, 0, 0.692);
+  padding: 0px;
+  width: 35vh;
+  height: 100vh;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex: 1 0 auto;
+}
+
+
+.flex-item-right {
+  width: 120vh;
+  height: 100vh;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex: 1 0 auto;
+}
+
+img{
+  padding: 0;
+  margin: 0;
+}
+
+
+p {
+  font-size: 18px;
+  padding: 0px 60px 0px;
+  margin: 0;
+}
+
+/* Globad text input styles */
+.text-input{
+  width: 300px;
+  height: 60px;
+  margin-bottom: 32px;
+  font-size: 18px;
+  padding: 0px 15px 0px 15px;
+  border: 0.2px;
+  border-bottom-style: solid;
+  color:  rgba(255, 255, 255, 0.664);
+  background: none;
+}
+
+/* !LOGIN / REGISTER */
+/* Selector between Login and Register */
+.tabs{
+  padding-bottom: 40px;
+}
+
+/* Login Button Style */
+.login-btn {
+  font-size: 16px;
+  line-height: 35px;
+  width: 154px;
+  height: 49px;
+  padding: 5px;
+  display: inline-block;
+  position: relative;
+  color: white;
+  border: none;
+  border-radius: 36px;
+  background-color: #8A30E1;
+}
