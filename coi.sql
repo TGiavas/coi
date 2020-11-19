@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2020 at 02:36 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Nov 19, 2020 at 02:02 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -180,11 +179,19 @@ CREATE TABLE `stakeholder_projects` (
 --
 
 CREATE TABLE `users` (
-  `AFM` int(9) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `role` varchar(30) NOT NULL
+  `AFM` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_type` varchar(2) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUES
+(77777, 'John', '$2y$10$H1RoZpGAqCSEiyMaYKKHs.SXDPlf8ILhRcSsd0t33khumu0VmVvya', 'GO', '2020-11-18 23:25:23');
 
 --
 -- Indexes for dumped tables
@@ -237,6 +244,13 @@ ALTER TABLE `public_servants`
 ALTER TABLE `stakeholder_projects`
   ADD PRIMARY KEY (`stakeholder_AFM`,`project_id`),
   ADD KEY `project_id` (`project_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`AFM`),
+  ADD UNIQUE KEY `username` (`name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
