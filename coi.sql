@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2020 at 02:02 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Generation Time: Nov 30, 2020 at 03:13 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,19 +28,21 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `conflicts` (
+  `conflict_id` int(11) NOT NULL,
   `project_id` int(12) NOT NULL,
   `ps_id` int(12) NOT NULL,
-  `ps_name` varchar(50) NOT NULL,
-  `project_name` varchar(50) NOT NULL,
-  `coi_description` varchar(500) NOT NULL
+  `coi_description` varchar(500) NOT NULL,
+  `status` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `conflicts`
 --
 
-INSERT INTO `conflicts` (`project_id`, `ps_id`, `ps_name`, `project_name`, `coi_description`) VALUES
-(8, 1, 'John Smith', 'Public Road', 'Wife is on the firm board');
+INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_id`, `coi_description`, `status`) VALUES
+(8, 8, 1, 'sdf', 'pending'),
+(9, 1, 1, 'asdf', 'pending'),
+(10, 7, 1, 'asdf', 'pending');
 
 -- --------------------------------------------------------
 
@@ -191,7 +193,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUES
-(77777, 'John', '$2y$10$H1RoZpGAqCSEiyMaYKKHs.SXDPlf8ILhRcSsd0t33khumu0VmVvya', 'GO', '2020-11-18 23:25:23');
+(77777, 'John', '$2y$10$H1RoZpGAqCSEiyMaYKKHs.SXDPlf8ILhRcSsd0t33khumu0VmVvya', 'GO', '2020-11-18 23:25:23'),
+(122222, 'adfs', '$2y$10$GmvSpg3JZ/CBqttAHqCL7uVDjy/hE.YY4P01R3SPN2t0HP/KQ0U2S', 'GO', '2020-11-19 23:01:50'),
+(1234567, 'ttt', '$2y$10$XLjORmftujvSHBXxRQObtONYFeE/.lrgmfesywqQhQAyM9ThnBgp.', 'FR', '2020-11-19 23:09:22');
 
 --
 -- Indexes for dumped tables
@@ -201,7 +205,7 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 -- Indexes for table `conflicts`
 --
 ALTER TABLE `conflicts`
-  ADD PRIMARY KEY (`project_id`,`ps_id`),
+  ADD PRIMARY KEY (`conflict_id`),
   ADD KEY `project_id` (`project_id`),
   ADD KEY `ps_id` (`ps_id`),
   ADD KEY `project_id_2` (`project_id`);
@@ -255,6 +259,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `conflicts`
+--
+ALTER TABLE `conflicts`
+  MODIFY `conflict_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `projects`
