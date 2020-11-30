@@ -121,17 +121,19 @@ include('connect.php');
         </div>
         <?php
         // Attempt select query execution
-        $sql = "SELECT * FROM conflicts";
+        $sql = "SELECT * FROM conflicts INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN public_servants ON conflicts.ps_id = public_servants.ps_AFM";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
-                echo  "<table id='conflicts' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
+                echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th class='th-sm' id ='th-first' >Project ID</th>";
                 echo "<th class='th-sm'>Project Name</th>";
                 echo "<th class='th-sm'>Public Servant ID</th>";
                 echo "<th class='th-sm'>Public Servant Name</th>";
-                echo "<th class='th-sm' id='th-last'>Conflict Description</th>";
+                echo "<th class='th-sm'>Conflict Description</th>";
+                echo "<th class='th-sm'>Action</th>";
+                echo "<th class='th-sm' id='th-last'>Status</th>";
                 /*echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";*/
                 echo "</tr>";
                 echo "</thead>";
@@ -143,6 +145,16 @@ include('connect.php');
                     echo "<td>" . $row['ps_id'] . "</td>";
                     echo "<td>" . $row['ps_name'] . "</td>";
                     echo "<td>" . $row['coi_description'] . "</td>";
+                    echo "<td><form method='POST' action='approve_coi.php'>
+                    <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
+                    <input type='submit' name='submit' value='Approve'/>               
+                    </form>
+                    <form method='POST' action='reject_coi.php'>
+                    <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
+                    <input type='submit' name='submit' value='Reject'/>
+                    </form>
+                    </td>"; 
+                    echo "<td>" . $row['status'] . "</td>";       
                     echo "</td>";
                     echo "</tr>";
                 }
