@@ -184,3 +184,6 @@ input:focus {
     border-radius: 36px;
     background-color: #8A30E1;
 }
+
+
+form{ display: inline-block; }
