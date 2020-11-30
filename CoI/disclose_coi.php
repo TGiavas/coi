@@ -6,11 +6,12 @@ require_once "connect.php";
 // Define variables and initialize with empty values
 $project_id = $ps_id = $coi_description = "";
 $project_id_err = $ps_id_err = $coi_description_err = "";
+$status = "pending";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate project name
-    $input_project_id= trim($_POST["project_id"]);
+    $input_project_id = trim($_POST["project_id"]);
     if (empty($input_project_id)) {
         $project_id_err = "Please enter a project id.";
     } else {
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate project_des
-    $input_ps_id = trim($_POST["PS_id"]);
+    $input_ps_id = trim($_POST["ps_id"]);
     if (empty($input_ps_id)) {
         $ps_id_err = "Please enter the public servant id.";
     } else {
@@ -35,18 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Check input errors before inserting in database
-    if (empty($project_name_err) && empty($PS_name_err) && empty($coi_description_err) ){
+    if (empty($project_name_err) && empty($PS_name_err) && empty($coi_description_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO conflicts (project_id, ps_id, coi_description) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO conflicts (project_id, ps_id, coi_description, status) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_project_id, $param_ps_id, $param_coi_description);
+            mysqli_stmt_bind_param($stmt, "ssss", $param_project_id, $param_ps_id, $param_coi_description, $param_status);
 
             // Set parameters
             $param_project_id = $project_id;
             $param_ps_id = $ps_id;
             $param_coi_description = $coi_description;
+            $param_status = $status;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -101,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="form-group <?php echo (!empty($PS_name_err)) ? 'has-error' : ''; ?>">
                             <label>Public Servant ID</label>
-                            <input type = "text" name="ps_id" class="form-control"><?php echo $ps_id; ?>
+                            <input type="text" name="ps_id" class="form-control"><?php echo $ps_id; ?>
                             <span class="help-block"><?php echo $ps_id_err; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($coi_description_err)) ? 'has-error' : ''; ?>">

@@ -13,7 +13,7 @@ include('connect.php');
 
 
     // Attempt select query execution
-    $sql = "SELECT * FROM conflicts";
+    $sql = "SELECT * FROM conflicts  INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN public_servants ON conflicts.ps_id = public_servants.ps_AFM" ;
     if ($result = mysqli_query($conn, $sql)) {
         if (mysqli_num_rows($result) > 0) {
             echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -23,7 +23,9 @@ include('connect.php');
             echo "<th class='th-sm'>Project Name</th>";
             echo "<th class='th-sm'>Public Servant ID</th>";
             echo "<th class='th-sm'>Public Servant Name</th>";
-            echo "<th class='th-sm' id='th-last'>Conflict Description</th>";
+            echo "<th class='th-sm'>Conflict Description</th>";
+            echo "<th class='th-sm'>Action</th>";
+            echo "<th class='th-sm' id='th-last'>Status</th>";
             /*echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";*/
             echo "</tr>";
             echo "</thead>";
@@ -35,6 +37,9 @@ include('connect.php');
                 echo "<td>" . $row['ps_id'] . "</td>";
                 echo "<td>" . $row['ps_name'] . "</td>";
                 echo "<td>" . $row['coi_description'] . "</td>";
+                echo "<td><class='pull-left'form action='approve.php' method='POST'><input type='hidden' name='accept' value='".$row["conflict_id"]."'/><input type='submit' name='submit' value='Approve'/>
+                </form><class='pull-left' form action='decline.php' method='POST'><input type='hidden' name='decline' value='".$row["conflict_id"]."'/><input type='submit' name='submit' value='Reject'/></form></td>"; 
+                echo "<td>" . $row['status'] . "</td>";                  
                 //echo "<td>";
                 // echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
                 // echo " ";
