@@ -2,22 +2,16 @@
 include('connect.php');
 ?>
 
-
-
-
-
 <div class="tab">
     <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'View All Projects')">Projects</button>
     <button class="tablinks" onclick="openTab(event, 'Public Servants')">Public Servants</button>
     <button class="tablinks" onclick="openTab(event, 'Conflicts')">Conflicts of Interest</button>
     <button class="tablinks" onclick="openTab(event, 'Register User')">Register User</button>
+    <form method="post" action="logout.php" id="logoutform">
+      <button class="tablinks" id="logout-btn">Log Out</button>
+    </form>
 </div>
 
-<form method="post" action="logout.php">
-  <label class="logoutLblPos">
-  <input name="logout-btn" type="submit" id="logout-btn" value="log out">
-  </label>
-</form>
 
 
 <div id="View All Projects" class="tabcontent" id="defaultOpen">
@@ -79,7 +73,7 @@ include('connect.php');
             if (mysqli_num_rows($result) > 0) {
                 echo  "<table id='ps_projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
                 echo "<thead>";
-                echo "<tr>";				
+                echo "<tr>";
                 echo "<th class='th-sm' id ='th-first' >Public Servant ΑΦΜ</th>";
                 echo "<th class='th-sm'>Project ID</th>";
                 echo "<th class='th-sm'>Public Servant Name</th>";
@@ -147,14 +141,14 @@ include('connect.php');
                     echo "<td>" . $row['coi_description'] . "</td>";
                     echo "<td><form method='POST' action='approve_coi.php'>
                     <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
-                    <input type='submit' name='submit' value='Approve'/>               
+                    <input type='submit' name='submit' value='Approve'/>
                     </form>
                     <form method='POST' action='reject_coi.php'>
                     <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
                     <input type='submit' name='submit' value='Reject'/>
                     </form>
-                    </td>"; 
-                    echo "<td>" . $row['status'] . "</td>";       
+                    </td>";
+                    echo "<td>" . $row['status'] . "</td>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -180,11 +174,10 @@ include('connect.php');
     <?php
     // Include config file
     require_once "config.php";
-
-    // Define variables and initialize with empty values
     $AFM = $name = $user_type = $password = $confirm_password = "";
     $AFM_err = $name_err = $user_type_err = $password_err = $confirm_password_err = "";
 
+    // Define variables and initialize with empty values
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty(trim($_POST["AFM"]))) {
             $AFM_err = "Please enter an AFM.";
@@ -220,10 +213,10 @@ include('connect.php');
         }
 
 
-        if (empty(trim($_POST["user_type"]))) {
+        if (empty(trim($_POST['user_type']))) {
             $user_type_err = "Please enter a User Type.";
         } else {
-            $user_type = trim($_POST["user_type"]);
+            $user_type = $_POST['user_type'];
         }
 
         // Check input errors before inserting in database
@@ -243,6 +236,7 @@ include('connect.php');
                 $param_user_type = $user_type;
 
                 // Attempt to execute the prepared statement
+
                 if (mysqli_stmt_execute($stmt)) {
                     // Redirect to login page
                     header("location: login.php");
@@ -257,7 +251,8 @@ include('connect.php');
 
         // Close connection
         mysqli_close($link);
-    }
+      }
+
     ?>
 
 
@@ -288,7 +283,7 @@ include('connect.php');
                             <p style="font-size:30px; padding-bottom: 80px;"> Register New User</h1>
                         </div>
                         <!-- PHP Form -->
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <div class="form-group <?php echo (!empty($AFM_err)) ? 'has-error' : ''; ?>">
                                 <label>ΑΦΜ</label>
                                 <input type="text" name="AFM" class="form-control" value="<?php echo $AFM; ?>">
@@ -310,14 +305,20 @@ include('connect.php');
                                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
                             </div>
                             <div class="form-group <?php echo (!empty($user_type_err)) ? 'has-error' : ''; ?>">
-                                <label>User Type (GO-FR-PS)</label>
-                                <input type="text" name="user_type" class="form-control" value="<?php echo $user_type; ?>">
+                                <label>User Type</label>
+                                <br>
+                                <select id="user_type" name="user_type" class="form-control">
+                                  <option value="GO">Government Official</option>
+                                  <option value="FR">Firm Representative</ption>
+                                  <option value="PS">Public Servant</option>
+                                </select>
                                 <span class="help-block"><?php echo $user_type_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Submit" name="submitbtn">
                                 <input type="reset" class="btn btn-default" value="Reset">
                             </div>
+                          </form>
                     </div>
                 </div>
             </li>
@@ -327,7 +328,7 @@ include('connect.php');
 
 </body>
 
-</html>
+
 
 
 
@@ -384,5 +385,3 @@ include('connect.php');
 
 
 </body>
-
-</html>

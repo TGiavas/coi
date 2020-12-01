@@ -103,6 +103,8 @@ input:focus {
     cursor: pointer;
     overflow: hidden;
     outline: none;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .tab {
@@ -185,5 +187,9 @@ input:focus {
     background-color: #8A30E1;
 }
 
+#logoutform {
+  float:right;
+  margin-right: 15px;
+}
 
 form{ display: inline-block; }

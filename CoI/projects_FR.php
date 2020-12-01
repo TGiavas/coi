@@ -54,12 +54,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'View All Projects')">View All Projects</button>
   <button class="tablinks" onclick="openTab(event, 'View Applied Projects')">View Applied Projects</button>
   <button class="tablinks" onclick="openTab(event, 'View Firm Stakeholders')">View Firm Stakeholders</button>
+  <form method="post" action="logout.php" id="logoutform">
+    <button class="tablinks" id="logout-btn">Log Out</button>
+  </form>
 </div>
 
 <!-- Tab content -->
 <div id="View All Projects" class="tabcontent" id="defaultOpen">
 
   <script>
+  /*
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
@@ -72,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function alreadyApplied() {
       alert("You have already applied for this project");
     }
+    */
   </script>
 
   <div class="wrapper-table">
@@ -117,18 +122,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p class='lead'><em>No records were found.</em></p>";
       }
     } else {
-      echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+      echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
     }
 
     // Applied project list.
-    echo "<form method='post'>";
     echo "<center>";
+    echo "<form method='post'>";
     echo "<h5 style='color:white'>Enter the Project ID you want to apply for</h5>";
     echo "<br>";
     echo "<input type='text' placeholder='e.g. #3828' name='idInput' class='idInput' required>";
     echo "</center>";
     echo "<input type='submit' value='Apply' name='apply' class='submit-button'>";
     echo "</form>";
+
     //Table of projects the firm has applied for
     ?>
 
@@ -177,7 +183,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p class='lead'><em>No records were found.</em></p>";
       }
     } else {
-      echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+      echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
     }
     ?>
   </div>
@@ -222,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p class='lead'><em>No records were found.</em></p>";
       }
     } else {
-      echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+      echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
     }
 
     echo "<a href='add_stakeholder.php' class='submit-button'>Add New Stakeholder</a>";
