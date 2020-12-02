@@ -1,11 +1,12 @@
 <?php
+
 include('header.php');
 // Include config file
 require_once "connect.php";
 
 // Define variables and initialize with empty values
-$project_id = $ps_id = $coi_description = "";
-$project_id_err = $ps_id_err = $coi_description_err = "";
+$project_id = $ps_AFM = $coi_description = "";
+$project_id_err = $ps_AFM_err = $coi_description_err = "";
 $status = "pending";
 
 // Processing form data when form is submitted
@@ -19,11 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate project_des
-    $input_ps_id = trim($_POST["ps_id"]);
-    if (empty($input_ps_id)) {
-        $ps_id_err = "Please enter the public servant id.";
+    $input_ps_AFM = trim($_POST["ps_AFM"]);
+    if (empty($input_ps_AFM)) {
+        $ps_AFM_err = "Please enter the public servant id.";
     } else {
-        $ps_id = $input_ps_id;
+        $ps_AFM = $input_ps_AFM;
     }
 
     // Validate usertype
@@ -38,15 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting in database
     if (empty($project_name_err) && empty($PS_name_err) && empty($coi_description_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO conflicts (project_id, ps_id, coi_description, status) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO conflicts (project_id, ps_AFM, coi_description, status) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssss", $param_project_id, $param_ps_id, $param_coi_description, $param_status);
+            mysqli_stmt_bind_param($stmt, "ssss", $param_project_id, $param_ps_AFM, $param_coi_description, $param_status);
 
             // Set parameters
             $param_project_id = $project_id;
-            $param_ps_id = $ps_id;
+            $param_ps_AFM = $ps_AFM;
             $param_coi_description = $coi_description;
             $param_status = $status;
 
@@ -101,10 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" name="project_id" class="form-control" value="<?php echo $project_id; ?>">
                             <span class="help-block"><?php echo $project_id_err; ?></span>
                         </div>
-                        <div class="form-group <?php echo (!empty($PS_name_err)) ? 'has-error' : ''; ?>">
-                            <label>Public Servant ID</label>
-                            <input type="text" name="ps_id" class="form-control"><?php echo $ps_id; ?>
-                            <span class="help-block"><?php echo $ps_id_err; ?></span>
+                        <div class="form-group <?php echo (!empty($PS_AFM_err)) ? 'has-error' : ''; ?>">
+                            <label>Public Servant ΑΦΜ</label>
+                            <input type="text" name="ps_AFM" class="form-control"><?php echo $ps_AFM; ?>
+                            <span class="help-block"><?php echo $ps_AFM_err; ?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($coi_description_err)) ? 'has-error' : ''; ?>">
                             <label>Conflict of Interest description</label>

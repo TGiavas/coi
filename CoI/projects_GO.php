@@ -68,14 +68,13 @@ include('connect.php');
         </div>
         <?php
         // Attempt select query execution
-        $sql = "SELECT * FROM ps_projects";
+        $sql = "SELECT * FROM public_servants INNER JOIN users ON users.AFM = public_servants.ps_AFM INNER JOIN projects ON projects.project_id = public_servants.project_id";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
                 echo  "<table id='ps_projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th class='th-sm' id ='th-first' >Public Servant ΑΦΜ</th>";
-                echo "<th class='th-sm'>Project ID</th>";
                 echo "<th class='th-sm'>Public Servant Name</th>";
                 echo "<th class='th-sm'>Project Name</th>";
                 echo "<th class='th-sm' id='th-last'>Public Servant Role</th>";
@@ -85,11 +84,10 @@ include('connect.php');
                 echo "<tbody>";
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
-                    echo "<td>" . $row['project_id'] . "</td>";
+                    echo "<td>" . $row['ps_AFM'] . "</td>";
+                    echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['project_name'] . "</td>";
-                    echo "<td>" . $row['project_start_date'] . "</td>";
-                    echo "<td>" . $row['project_end_date'] . "</td>";
-                    echo "<td>" . $row['ps_role	'] . "</td>";
+                    echo "<td>" . $row['ps_role'] . "</td>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -115,7 +113,7 @@ include('connect.php');
         </div>
         <?php
         // Attempt select query execution
-        $sql = "SELECT * FROM conflicts INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN public_servants ON conflicts.ps_id = public_servants.ps_AFM";
+        $sql = "SELECT * FROM conflicts INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN users ON conflicts.ps_AFM = users.AFM";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
                 echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -136,14 +134,14 @@ include('connect.php');
                     echo "<tr>";
                     echo "<td>" . $row['project_id'] . "</td>";
                     echo "<td>" . $row['project_name'] . "</td>";
-                    echo "<td>" . $row['ps_id'] . "</td>";
-                    echo "<td>" . $row['ps_name'] . "</td>";
+                    echo "<td>" . $row['ps_AFM'] . "</td>";
+                    echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['coi_description'] . "</td>";
-                    echo "<td><form method='POST' action='approve_coi.php'>
+                    echo "<td><form method='POST'class='coi-btn-form' action='approve_coi.php'>
                     <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
                     <input type='submit' name='submit' value='Approve'/>
                     </form>
-                    <form method='POST' action='reject_coi.php'>
+                    <form method='POST' class='coi-btn-form' action='reject_coi.php'>
                     <input type='hidden' name='conflict_id' value='".$row["conflict_id"]."'/>
                     <input type='submit' name='submit' value='Reject'/>
                     </form>

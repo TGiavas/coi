@@ -49,16 +49,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //     $public_servants = $input_public_servants;
     // }
 
-    $stakeholder_firm = "test";
+    $firm_id=1;
 
     // Check input errors before inserting in database
     if (empty($stakeholder_AFM_err) && empty($project_id_err) && empty($stakeholder_name_err) && empty($stakeholder_role_err) ){
         // Prepare an insert statement
-        $sql = "INSERT INTO firm_stakeholder (stakeholder_AFM, stakeholder_name, stakeholder_firm, stakeholder_role, project_id) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO firm_stakeholders (stakeholder_AFM, stakeholder_name, firm_id, stakeholder_role, project_id) VALUES (?, ?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssss", $param_stakeholder_AFM, $param_stakeholder_name, $stakeholder_firm, $param_stakeholder_role, $param_project_id);
+            mysqli_stmt_bind_param($stmt, "sssss", $param_stakeholder_AFM, $param_stakeholder_name, $firm_id, $param_stakeholder_role, $param_project_id);
 
             // Set parameters
             $param_stakeholder_AFM = $stakeholder_AFM;

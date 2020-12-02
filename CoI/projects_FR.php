@@ -5,8 +5,8 @@ include('connect.php');
 
 $project_id = $_POST['idInput'];
 
-$sql = "INSERT INTO firm_project(firm_name, project_id) VALUES ('test', '$project_id')";
-$sqlDupe = "SELECT * FROM firm_project WHERE project_id = '$project_id' AND firm_name = 'test'";
+$sql = "INSERT INTO firms_projects(firm_id, project_id) VALUES (1, '$project_id')";
+$sqlDupe = "SELECT * FROM firms_projects WHERE project_id = '$project_id' AND firm_id = 'test'";
 $sqlExists = "SELECT * FROM projects WHERE project_id = '$project_id'";
 
 
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <?php
 
-    $sql = "SELECT * FROM firm_project INNER JOIN projects ON firm_project.project_id = projects.project_id WHERE firm_name = 'test' ";
+    $sql = "SELECT * FROM firms_projects INNER JOIN projects ON firms_projects.project_id = projects.project_id WHERE firm_id = 1 ";
     if ($result = mysqli_query($conn, $sql)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='firm_projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="page-header clearfix">
       <h2 class="pull-left">Firm Stakholders</h2>
     </div>
-    <?php $sql = "SELECT * FROM firm_stakeholder";
+    <?php $sql = "SELECT * FROM firm_stakeholders";
     if ($result = mysqli_query($conn, $sql)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='stakeholders' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
