@@ -1,6 +1,8 @@
 <?php
-// Initialize the session
-session_start();
+//Initialize the session
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
@@ -11,8 +13,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
   } else if ($_SESSION["user_type"] == "FR") {
     header("projects_FR.php"); //if admin user redirect to admin.php
     exit;
-  }
-  else {
+  } else {
     header("projects_PS.php"); //if admin user redirect to admin.php
     exit;
   }
@@ -71,7 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           if (mysqli_stmt_fetch($stmt)) {
             if (password_verify($password, $hashed_password)) {
               // Password is correct, so start a new session
-              session_start();
+
+              if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+              }
+
 
               // Store data in session variables
               $_SESSION["loggedin"] = true;
@@ -81,12 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
               // Redirect user to welcome page
               if ($_SESSION["user_type"] == "GO") { //check usertype
-                header("Location:projects_GO.php"); //if normal user redirect to app.php
+                header("Location:projects_GO.php");
               } else if ($_SESSION["user_type"] == "FR") {
-                header("projects_FR.php"); //if admin user redirect to admin.php
-              }
-              else {
-                header("projects_PS.php"); //if admin user redirect to admin.php
+                header("Location:projects_FR.php"); 
+              } else {
+                header("Location:projects_PS.php"); 
               }
             } else {
               // Display an error message if password is not valid

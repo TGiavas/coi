@@ -99,7 +99,6 @@ include('connect.php');
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
-        echo "<a href='create_project.php' class='submit-button'>Add New Project</a>";
 //        mysqli_close($conn);
         ?>
         </table>
@@ -116,7 +115,7 @@ include('connect.php');
         $sql = "SELECT * FROM conflicts INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN users ON conflicts.ps_AFM = users.AFM";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
-                echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
+                echo  "<table id='conflicts' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th class='th-sm' id ='th-first' >Project ID</th>";
@@ -159,7 +158,7 @@ include('connect.php');
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
         // Close connection
-        mysqli_close($conn);
+ //       mysqli_close($conn);
         ?>
     </div>
 
@@ -248,7 +247,8 @@ include('connect.php');
         }
 
         // Close connection
-        mysqli_close($link);
+     //
+    //   mysqli_close($link);
       }
 
     ?>
@@ -325,13 +325,6 @@ include('connect.php');
 </div>
 
 </body>
-
-
-
-
-
-
-
 
 
 
