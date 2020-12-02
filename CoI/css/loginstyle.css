@@ -17,6 +17,8 @@
 body{
   background-image: url("../assets/Background.png");
   background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .flex-container {
