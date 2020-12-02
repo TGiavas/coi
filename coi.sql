@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2020 at 03:13 PM
+-- Generation Time: Dec 02, 2020 at 07:10 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `conflicts` (
-  `conflict_id` int(11) NOT NULL,
-  `project_id` int(12) NOT NULL,
-  `ps_id` int(12) NOT NULL,
+  `conflict_id` int(9) NOT NULL,
+  `project_id` int(9) NOT NULL,
+  `ps_AFM` int(9) NOT NULL,
   `coi_description` varchar(500) NOT NULL,
   `status` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,31 +39,44 @@ CREATE TABLE `conflicts` (
 -- Dumping data for table `conflicts`
 --
 
-INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_id`, `coi_description`, `status`) VALUES
-(8, 8, 1, 'sdf', 'pending'),
-(9, 1, 1, 'asdf', 'pending'),
-(10, 7, 1, 'asdf', 'pending');
+INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_AFM`, `coi_description`, `status`) VALUES
+(16, 10, 123456789, 'wife on firm board', 'approved');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `firm_project`
+-- Table structure for table `firm`
 --
 
-CREATE TABLE `firm_project` (
-  `firm_name` varchar(50) NOT NULL,
-  `project_id` int(11) NOT NULL
+CREATE TABLE `firm` (
+  `firm_id` int(9) NOT NULL,
+  `firm_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `firm_project`
+-- Dumping data for table `firm`
 --
 
-INSERT INTO `firm_project` (`firm_name`, `project_id`) VALUES
-('test', 1),
-('test', 9),
-('test', 3),
-('test', 2);
+INSERT INTO `firm` (`firm_id`, `firm_name`) VALUES
+(1, 'AKTOR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `firms_projects`
+--
+
+CREATE TABLE `firms_projects` (
+  `firm_id` int(9) NOT NULL COMMENT '9',
+  `project_id` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `firms_projects`
+--
+
+INSERT INTO `firms_projects` (`firm_id`, `project_id`) VALUES
+(1, 10);
 
 -- --------------------------------------------------------
 
@@ -73,31 +86,29 @@ INSERT INTO `firm_project` (`firm_name`, `project_id`) VALUES
 
 CREATE TABLE `firm_representatives` (
   `fr_AFM` int(9) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `firm_name` varchar(50) NOT NULL
+  `firm_id` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `firm_stakeholder`
+-- Table structure for table `firm_stakeholders`
 --
 
-CREATE TABLE `firm_stakeholder` (
+CREATE TABLE `firm_stakeholders` (
   `stakeholder_AFM` int(9) NOT NULL,
-  `stakeholder_name` varchar(20) NOT NULL,
-  `stakeholder_firm` varchar(20) NOT NULL,
+  `stakeholder_name` varchar(50) NOT NULL,
+  `firm_id` int(11) NOT NULL,
   `stakeholder_role` varchar(20) NOT NULL,
   `project_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `firm_stakeholder`
+-- Dumping data for table `firm_stakeholders`
 --
 
-INSERT INTO `firm_stakeholder` (`stakeholder_AFM`, `stakeholder_name`, `stakeholder_firm`, `stakeholder_role`, `project_id`) VALUES
-(123456788, 'A', 'test', 'A', 1),
-(123456789, 'adsasda', 'test', 'qweq', 0);
+INSERT INTO `firm_stakeholders` (`stakeholder_AFM`, `stakeholder_name`, `firm_id`, `stakeholder_role`, `project_id`) VALUES
+(555111333, 'Giannis Sxinas', 1, 'board director', 10);
 
 -- --------------------------------------------------------
 
@@ -118,29 +129,7 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `project_end_date`, `project_desc`) VALUES
-(1, 'Project 1', '2020-10-27', '0000-00-00', ''),
-(2, '2', '2020-10-27', '0000-00-00', ''),
-(3, 'asdfasdf', '2020-10-27', '0000-00-00', ''),
-(4, 'asdfasf', '2020-10-27', '0000-00-00', 'desc'),
-(5, 'asdfasdfsed', '0000-00-00', '2020-10-26', '2020-11-12'),
-(6, 'test project', '0000-00-00', '2020-11-10', '2020-11-26'),
-(7, 'asdf', '2020-11-03', '2020-11-18', 'asdfasdfsdf'),
-(8, 'Public Road', '2020-11-04', '2020-11-12', 'Road'),
-(9, 'Egnatia Odos', '2020-11-11', '2020-11-27', 'dromos sti makedonia');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ps_projects`
---
-
-CREATE TABLE `ps_projects` (
-  `ps_AFM` int(9) NOT NULL,
-  `project_id` int(12) NOT NULL,
-  `ps_name` varchar(20) NOT NULL,
-  `project_name` varchar(20) NOT NULL,
-  `ps_role` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(10, 'Egnatia Odos', '2020-11-25', '2021-06-08', 'Build public road in Macedonia');
 
 -- --------------------------------------------------------
 
@@ -150,7 +139,7 @@ CREATE TABLE `ps_projects` (
 
 CREATE TABLE `public_servants` (
   `ps_AFM` int(9) NOT NULL,
-  `ps_name` varchar(50) NOT NULL,
+  `project_id` int(9) NOT NULL,
   `ps_role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -158,20 +147,18 @@ CREATE TABLE `public_servants` (
 -- Dumping data for table `public_servants`
 --
 
-INSERT INTO `public_servants` (`ps_AFM`, `ps_name`, `ps_role`) VALUES
-(1, 'John Smit', 'overseer');
+INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
+(123456789, 10, 'technical overseer');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stakeholder_projects`
+-- Table structure for table `stakeholders_projects`
 --
 
-CREATE TABLE `stakeholder_projects` (
+CREATE TABLE `stakeholders_projects` (
   `stakeholder_AFM` int(9) NOT NULL,
-  `project_id` int(11) NOT NULL,
-  `stakeholder_name` varchar(50) NOT NULL,
-  `project_name` varchar(50) NOT NULL
+  `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -193,9 +180,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUES
-(77777, 'John', '$2y$10$H1RoZpGAqCSEiyMaYKKHs.SXDPlf8ILhRcSsd0t33khumu0VmVvya', 'GO', '2020-11-18 23:25:23'),
-(122222, 'adfs', '$2y$10$GmvSpg3JZ/CBqttAHqCL7uVDjy/hE.YY4P01R3SPN2t0HP/KQ0U2S', 'GO', '2020-11-19 23:01:50'),
-(1234567, 'ttt', '$2y$10$XLjORmftujvSHBXxRQObtONYFeE/.lrgmfesywqQhQAyM9ThnBgp.', 'FR', '2020-11-19 23:09:22');
+(123456789, 'Kostas Petrakopoulos', '$2y$10$F./KHQ12KSxoJsP4jXMYueDO3CKWQ9sYxFN2s3IpHow/QthkSHrzq', 'PS', '2020-12-02 19:00:24'),
+(155432111, 'Giannis Papadopoulos', '$2y$10$uIQVfiYUos87HBERGdPPyOlJZzFovf4e4bsELtVGSZlKB8xtubNY.', 'FR', '2020-12-02 18:49:59'),
+(156432111, 'Orestis Kanakis', '$2y$10$FeN1bcjnHxb/05JmLseE/.hes1FR1vk9UMGoC5xVNd4GrC/nd8y0q', 'FR', '2020-12-02 19:29:56'),
+(167222135, 'Thanos Giannakis', '$2y$10$XJj.JD60361vyy5r8Ke2heHoFmtkT2r.lqoZU.XNAxkOH54nFooZG', 'GO', '2020-12-02 19:32:43');
 
 --
 -- Indexes for dumped tables
@@ -207,20 +195,35 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 ALTER TABLE `conflicts`
   ADD PRIMARY KEY (`conflict_id`),
   ADD KEY `project_id` (`project_id`),
-  ADD KEY `ps_id` (`ps_id`),
-  ADD KEY `project_id_2` (`project_id`);
+  ADD KEY `ps_AFM` (`ps_AFM`);
 
 --
--- Indexes for table `firm_project`
+-- Indexes for table `firm`
 --
-ALTER TABLE `firm_project`
+ALTER TABLE `firm`
+  ADD PRIMARY KEY (`firm_id`);
+
+--
+-- Indexes for table `firms_projects`
+--
+ALTER TABLE `firms_projects`
+  ADD KEY `project_id` (`project_id`),
+  ADD KEY `firm_id` (`firm_id`);
+
+--
+-- Indexes for table `firm_representatives`
+--
+ALTER TABLE `firm_representatives`
+  ADD PRIMARY KEY (`fr_AFM`),
+  ADD KEY `firm_id` (`firm_id`);
+
+--
+-- Indexes for table `firm_stakeholders`
+--
+ALTER TABLE `firm_stakeholders`
+  ADD PRIMARY KEY (`stakeholder_AFM`),
+  ADD KEY `firm_id` (`firm_id`),
   ADD KEY `project_id` (`project_id`);
-
---
--- Indexes for table `firm_stakeholder`
---
-ALTER TABLE `firm_stakeholder`
-  ADD PRIMARY KEY (`stakeholder_AFM`);
 
 --
 -- Indexes for table `projects`
@@ -230,22 +233,16 @@ ALTER TABLE `projects`
   ADD KEY `project_id` (`project_id`);
 
 --
--- Indexes for table `ps_projects`
---
-ALTER TABLE `ps_projects`
-  ADD PRIMARY KEY (`ps_AFM`,`project_id`),
-  ADD KEY `project_id` (`project_id`);
-
---
 -- Indexes for table `public_servants`
 --
 ALTER TABLE `public_servants`
-  ADD PRIMARY KEY (`ps_AFM`);
+  ADD PRIMARY KEY (`ps_AFM`),
+  ADD KEY `project_id` (`project_id`);
 
 --
--- Indexes for table `stakeholder_projects`
+-- Indexes for table `stakeholders_projects`
 --
-ALTER TABLE `stakeholder_projects`
+ALTER TABLE `stakeholders_projects`
   ADD PRIMARY KEY (`stakeholder_AFM`,`project_id`),
   ADD KEY `project_id` (`project_id`);
 
@@ -264,13 +261,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `conflicts`
 --
 ALTER TABLE `conflicts`
-  MODIFY `conflict_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `conflict_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `firm`
+--
+ALTER TABLE `firm`
+  MODIFY `firm_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -281,27 +284,42 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `conflicts`
   ADD CONSTRAINT `conflicts_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_id`) REFERENCES `public_servants` (`ps_AFM`);
+  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `public_servants` (`ps_AFM`);
 
 --
--- Constraints for table `firm_project`
+-- Constraints for table `firms_projects`
 --
-ALTER TABLE `firm_project`
-  ADD CONSTRAINT `firm_project_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+ALTER TABLE `firms_projects`
+  ADD CONSTRAINT `firms_projects_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
+  ADD CONSTRAINT `firms_projects_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`);
 
 --
--- Constraints for table `ps_projects`
+-- Constraints for table `firm_representatives`
 --
-ALTER TABLE `ps_projects`
-  ADD CONSTRAINT `ps_projects_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `ps_projects_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `public_servants` (`ps_AFM`);
+ALTER TABLE `firm_representatives`
+  ADD CONSTRAINT `firm_representatives_ibfk_1` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`),
+  ADD CONSTRAINT `firm_representatives_ibfk_2` FOREIGN KEY (`fr_AFM`) REFERENCES `users` (`AFM`);
 
 --
--- Constraints for table `stakeholder_projects`
+-- Constraints for table `firm_stakeholders`
 --
-ALTER TABLE `stakeholder_projects`
-  ADD CONSTRAINT `stakeholder_projects_ibfk_1` FOREIGN KEY (`stakeholder_AFM`) REFERENCES `firm_stakeholder` (`stakeholder_AFM`),
-  ADD CONSTRAINT `stakeholder_projects_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+ALTER TABLE `firm_stakeholders`
+  ADD CONSTRAINT `firm_stakeholders_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`),
+  ADD CONSTRAINT `firm_stakeholders_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+
+--
+-- Constraints for table `public_servants`
+--
+ALTER TABLE `public_servants`
+  ADD CONSTRAINT `public_servants_ibfk_1` FOREIGN KEY (`ps_AFM`) REFERENCES `users` (`AFM`),
+  ADD CONSTRAINT `public_servants_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+
+--
+-- Constraints for table `stakeholders_projects`
+--
+ALTER TABLE `stakeholders_projects`
+  ADD CONSTRAINT `stakeholders_projects_ibfk_1` FOREIGN KEY (`stakeholder_AFM`) REFERENCES `firm_stakeholders` (`stakeholder_AFM`),
+  ADD CONSTRAINT `stakeholders_projects_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
