@@ -21,21 +21,15 @@ if (session_status() == PHP_SESSION_NONE) {
                     Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="projects_GO.php">View Projects</a>
+                <a class="dropdown-item" href="projects_GO.php">View Projects</a>
                     <a class="dropdown-item" href="create_project.php">Create New Project</a>
                 </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="conflicts.php">Conflicts of Interest</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Users
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="view_users_GO.php">View Users</a>
-                    <a class="dropdown-item" href="register.php">Register User</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="register.php">Register User</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,35 +57,33 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 </nav>
 
-<div id="View All Projects" class="tabcontent" id="defaultOpen">
+<div id="Public Servants">
     <div class="wrapper-table">
         <div class="page-header clearfix">
-            <h2 class="pull-left">Projects</h2>
+            <h2 class="pull-left">Public Servants</h2>
         </div>
         <?php
         // Attempt select query execution
-        $sql = "SELECT * FROM projects";
+        $sql = "SELECT * FROM public_servants INNER JOIN users ON users.AFM = public_servants.ps_AFM INNER JOIN projects ON projects.project_id = public_servants.project_id";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
-                echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
+                echo  "<table id='ps_projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
                 echo "<thead>";
                 echo "<tr>";
-                echo "<th class='th-sm' id ='th-first' >Project ID</th>";
+                echo "<th class='th-sm' id ='th-first' >Public Servant ΑΦΜ</th>";
+                echo "<th class='th-sm'>Public Servant Name</th>";
                 echo "<th class='th-sm'>Project Name</th>";
-                echo "<th class='th-sm'>Project Start Date Date</th>";
-                echo "<th class='th-sm'>Project End Date Date Date</th>";
-                echo "<th class='th-sm' id='th-last'>Project Description</th>";
+                echo "<th class='th-sm' id='th-last'>Public Servant Role</th>";
                 /*echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";*/
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
-                    echo "<td>" . $row['project_id'] . "</td>";
+                    echo "<td>" . $row['ps_AFM'] . "</td>";
+                    echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['project_name'] . "</td>";
-                    echo "<td>" . $row['project_start_date'] . "</td>";
-                    echo "<td>" . $row['project_end_date'] . "</td>";
-                    echo "<td>" . $row['project_desc'] . "</td>";
+                    echo "<td>" . $row['ps_role'] . "</td>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -103,29 +95,18 @@ if (session_status() == PHP_SESSION_NONE) {
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
-        echo "<a href='create_project.php' class='submit-button'>Add New Project</a>";
         mysqli_close($conn);
         ?>
         </table>
     </div>
 </div>
 
-
-
-
-
-
-
-
+</body>
 <?php include('footer.php') ?>
+
 <script>
     $(document).ready(function() {
-        $('#projects').DataTable();
-        $('.dataTables_length').addClass('bs-select');
+        $('#ps_projects').DataTable();
     });
 </script>
-
-
-</body>
-
 </html>

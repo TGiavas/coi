@@ -20,11 +20,10 @@ if (session_status() == PHP_SESSION_NONE) {
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <link rel="stylesheet" href="css/mdb.min.css" type="text/css">
-
-
     </head>
 
 <body>
-
-
-    </header>
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>

@@ -1,4 +1,45 @@
 <?php
+include('header.php');
+include('connect.php');
+?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Conflicts of Interest</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-text">
+        Firm Representative:
+        <?php echo $_SESSION["AFM"]; ?>
+    </span>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Projects
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="projects_FR.php">View All Projects</a>
+                    <a class="dropdown-item" href="applied_projects_FR.php">View Applied Projects</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Stakeholders
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="firm_stakeholders.php">View Firm Stakeholders</a>
+                    <a class="dropdown-item" href="add_stakeholder.php">Add New Stakeholder</a>
+                </div>
+            </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="post" action="logout.php" id="logoutform">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="logout-btn">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<?php
 //error_reporting(0);
 // Include config file
 require_once "connect.php";
@@ -10,7 +51,7 @@ $stakeholder_AFM_err = $stakeholder_name_err = $stakeholder_role_err = $project_
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate project name
-    $input_stakeholder_AFM= trim($_POST["stakeholder_AFM"]);
+    $input_stakeholder_AFM = trim($_POST["stakeholder_AFM"]);
     if (empty($input_stakeholder_AFM)) {
         $stakeholder_AFM_err = "Please enter Stakeholder Name.";
     } else {
@@ -49,10 +90,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //     $public_servants = $input_public_servants;
     // }
 
-    $firm_id=1;
+    $firm_id = 1;
 
     // Check input errors before inserting in database
-    if (empty($stakeholder_AFM_err) && empty($project_id_err) && empty($stakeholder_name_err) && empty($stakeholder_role_err) ){
+    if (empty($stakeholder_AFM_err) && empty($project_id_err) && empty($stakeholder_name_err) && empty($stakeholder_role_err)) {
         // Prepare an insert statement
         $sql = "INSERT INTO firm_stakeholders (stakeholder_AFM, stakeholder_name, firm_id, stakeholder_role, project_id) VALUES (?, ?, ?, ?, ?)";
 
@@ -87,21 +128,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Create Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
     <style type="text/css">
         .wrapper {
             width: 500px;
             margin: 0 auto;
         }
     </style>
-</head>
+
 
 <body>
     <div class="wrapper">
@@ -109,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h2>Create Project</h2>
+                        <h2>Add New Stakeholder</h2>
                     </div>
                     <p>Please fill this form and submit to add a new stakeholder to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -130,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="form-group <?php echo (!empty($project_id)) ? 'has-error' : ''; ?>">
                             <label>Project ID</label>
-                            <input type = "text" name="project_id" class="form-control"><?php echo $project_id; ?>
+                            <input type="text" name="project_id" class="form-control"><?php echo $project_id; ?>
                             <span class="help-block"><?php echo $project_id_err; ?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
@@ -140,6 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+    <?php include('footer.php') ?>
 </body>
 
 </html>

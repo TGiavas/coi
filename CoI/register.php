@@ -1,47 +1,68 @@
-<?php
-// Include config file
+<?php include('header.php');
+include('connect.php');
 require_once "config.php";
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 
-// Define variables and initialize with empty values
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Conflicts of Interest</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-text">
+        Government Official:
+        <?php echo $_SESSION["AFM"]; ?>
+    </span>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Projects
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="projects_GO.php">View Projects</a>
+                    <a class="dropdown-item" href="create_project.php">Create New Project</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="conflicts.php">Conflicts of Interest</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register.php">Register User</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Public Servants
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="view_public_servants_GO.php">View Pulic Servants</a>
+                    <a class="dropdown-item" href="add_public_servant_GO.php">Add New Public Servant</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Firm Representatives
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="view_firm_representatives_GO.php">View Firm Representatives</a>
+                    <a class="dropdown-item" href="add_firm_representative_GO.php">Add New Firm Representative</a>
+                </div>
+            </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="post" action="logout.php" id="logoutform">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="logout-btn">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<?php
 $AFM = $name = $user_type = $password = $confirm_password = "";
 $AFM_err = $name_err = $user_type_err = $password_err = $confirm_password_err = "";
 
-// // Processing form data when form is submitted
-// if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-//     // Validate name
-//     if(empty(trim($_POST["AFM"]))){
-//         $name_err = "Please enter an AFM.";
-//     } else{
-//         // Prepare a select statement
-//         $sql = "SELECT AFM FROM users WHERE AFM = ?";
-
-//         if($stmt = mysqli_prepare($link, $sql)){
-//             // Bind variables to the prepared statement as parameters
-//             mysqli_stmt_bind_param($stmt, "s", $param_name);
-
-//             // Set parameters
-//             $param_AFM = trim($_POST["AFM"]);
-
-//             // Attempt to execute the prepared statement
-//             if(mysqli_stmt_execute($stmt)){
-//                 /* store result */
-//                 mysqli_stmt_store_result($stmt);
-
-//                 if(mysqli_stmt_num_rows($stmt) == 1){
-//                     $AFM_err = "This AFM is already taken.";
-//                 } else{
-//                     $name = trim($_POST["AFM"]);
-//                 }
-//             } else{
-//                 echo "Oops! Something went wrong. Please try again later.";
-//             }
-
-//             // Close statement
-//             mysqli_stmt_close($stmt);
-//         }
-//     }
-
+// Define variables and initialize with empty values
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["AFM"]))) {
         $AFM_err = "Please enter an AFM.";
@@ -77,10 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    if (empty(trim($_POST["user_type"]))) {
+    if (empty(trim($_POST['user_type']))) {
         $user_type_err = "Please enter a User Type.";
     } else {
-        $user_type = trim($_POST["user_type"]);
+        $user_type = $_POST['user_type'];
     }
 
     // Check input errors before inserting in database
@@ -100,9 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_user_type = $user_type;
 
             // Attempt to execute the prepared statement
+
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location: projects_GO.php");
+                header("location: login.php");
             } else {
                 echo "Something went wrong. Please try again later.";
             }
@@ -113,141 +135,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Close connection
-    mysqli_close($link);
+    //
+    //   mysqli_close($link);
 }
+
 ?>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body {
-            font: 14px sans-serif;
-        }
-
-        .wrapper {
-            width: 350px;
-            padding: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($AFM_err)) ? 'has-error' : ''; ?>">
-                <label>AFM</label>
-                <input type="text" name="AFM" class="form-control" value="<?php echo $AFM; ?>">
-                <span class="help-block"><?php echo $AFM_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
-                <span class="help-block"><?php echo $name_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                <span class="help-block"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-                <span class="help-block"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($user_type_err)) ? 'has-error' : ''; ?>">
-                <label>User Type (GO-FR-PS)</label>
-                <input type="text" name="user_type" class="form-control" value="<?php echo $user_type; ?>">
-                <span class="help-block"><?php echo $user_type_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-default" value="Reset">
-            </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </form>
-    </div>
-</body> -->
-
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="css/loginstyle.css">
-</head>
-
-<body>
-  <ul class="flex-container">
-    <li class="flex-item-left">
-      <div>
-        <div>
-          <div>
-            <img src="assets/Application Logo.png" width="100%">
-          </div>
-          <p style="font-size:30px;"> Government Projects</p>
-          <p style="font-size: 15px;">Project Management System</p>
-          <br>
-          <p>A powerful, easy-to-use application for managing and applying for Government Projects.</p>
-        </div>
-      </div>
-    </li>
 
 
 
-  <li class="flex-item-right">
-      <!-- Login Form window -->
-      <div>
-        <div>
-          <div>
-            <p style="font-size:30px; padding-bottom: 80px;"> Register New User</h1>
-          </div>
-          <!-- PHP Form -->
-          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($AFM_err)) ? 'has-error' : ''; ?>">
-                <label>AFM</label>
-                <input type="text" name="AFM" class="form-control" value="<?php echo $AFM; ?>">
-                <span class="help-block"><?php echo $AFM_err; ?></span>
+<div class="wrapper-register">
+    <ul class="flex-container">
+        <li class="flex-item-left">
+            <div>
+                <div>
+                    <div>
+                        <img src="assets/Application Logo.png" width="100%">
+                    </div>
+                    <p style="font-size:30px;"> Government Projects</p>
+                    <p style="font-size: 15px;">Project Management System</p>
+                    <br>
+                    <p>A powerful, easy-to-use application for managing and applying for Government Projects.</p>
+                </div>
             </div>
-            <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
-                <span class="help-block"><?php echo $name_err; ?></span>
+        </li>
+
+
+
+        <li class="flex-item-right">
+            <!-- Login Form window -->
+            <div>
+                <div>
+                    <div>
+                        <p style="font-size:30px; padding-bottom: 80px;"> Register New User</h1>
+                    </div>
+                    <!-- PHP Form -->
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                        <div class="form-group <?php echo (!empty($AFM_err)) ? 'has-error' : ''; ?>">
+                            <label>ΑΦΜ</label>
+                            <input type="text" name="AFM" class="form-control" value="<?php echo $AFM; ?>">
+                            <span class="help-block"><?php echo $AFM_err; ?></span>
+                        </div>
+                        <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
+                            <span class="help-block"><?php echo $name_err; ?></span>
+                        </div>
+                        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+                            <span class="help-block"><?php echo $password_err; ?></span>
+                        </div>
+                        <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+                            <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                        </div>
+                        <div class="form-group <?php echo (!empty($user_type_err)) ? 'has-error' : ''; ?>">
+                            <label>User Type</label>
+                            <br>
+                            <select id="user_type" name="user_type" class="form-control">
+                                <option value="GO">Government Official</option>
+                                <option value="FR">Firm Representative</ption>
+                                <option value="PS">Public Servant</option>
+                            </select>
+                            <span class="help-block"><?php echo $user_type_err; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Submit" name="submitbtn">
+                            <input type="reset" class="btn btn-default" value="Reset">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                <span class="help-block"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-                <span class="help-block"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($user_type_err)) ? 'has-error' : ''; ?>">
-                <label>User Type (GO-FR-PS)</label>
-                <input type="text" name="user_type" class="form-control" value="<?php echo $user_type; ?>">
-                <span class="help-block"><?php echo $user_type_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-default" value="Reset">
-            </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </div>
-      </div>
-    </li>
-  </ul>
+        </li>
+    </ul>
+</div>
+<?php include('footer.php') ?>
 </body>
 
 </html>
