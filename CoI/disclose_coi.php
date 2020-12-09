@@ -1,3 +1,35 @@
+<?php include('header.php');
+include('connect.php');
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Conflicts of Interest</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-text">
+        Public Servant:
+        <?php echo $_SESSION["AFM"]; ?>
+    </span>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="projects_PS.php">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="disclose_coi.php">Disclose Conflict of Interest</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="post" action="logout.php" id="logoutform">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="logout-btn">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+
 <?php
 
 include('header.php');
@@ -8,23 +40,14 @@ require_once "connect.php";
 $project_id = $ps_AFM = $coi_description = "";
 $project_id_err = $ps_AFM_err = $coi_description_err = "";
 $status = "pending";
+$AFM = $_SESSION['AFM'];
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate project name
-    $input_project_id = trim($_POST["project_id"]);
-    if (empty($input_project_id)) {
-        $project_id_err = "Please enter a project id.";
-    } else {
-        $project_id = $input_project_id;
-    }
-
-    // Validate project_des
-    $input_ps_AFM = trim($_POST["ps_AFM"]);
-    if (empty($input_ps_AFM)) {
-        $ps_AFM_err = "Please enter the public servant id.";
-    } else {
-        $ps_AFM = $input_ps_AFM;
+    if (isset($_POST["project_id"]) && !empty($_POST["project_id"])) {
+        // Get hidden input value
+        $project_id = $_POST["project_id"];
     }
 
     // Validate usertype
@@ -47,14 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Set parameters
             $param_project_id = $project_id;
-            $param_ps_AFM = $ps_AFM;
+            $param_ps_AFM = $AFM;
             $param_coi_description = $coi_description;
             $param_status = $status;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Records created successfully. Redirect to landing page
-                header("location: projects_GO.php");
+                header("location: projects_PS.php");
                 exit();
             } else {
                 echo "Something went wrong. Please try again later.";
@@ -70,55 +93,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Create Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <style type="text/css">
-        .wrapper {
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
-    </style>
-</head>
+<style type="text/css">
+    .wrapper {
+        width: 500px;
+        margin: 0 auto;
+    }
+</style>
 
-<body>
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-header">
-                        <h2>Announce Conflict of Interest</h2>
-                    </div>
-                    <p>Please fill this form and submit to announce a conflict of interest to the government official.</p>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group <?php echo (!empty($project_id_err)) ? 'has-error' : ''; ?>">
-                            <label>Project ID</label>
-                            <input type="text" name="project_id" class="form-control" value="<?php echo $project_id; ?>">
-                            <span class="help-block"><?php echo $project_id_err; ?></span>
-                        </div>
-                        <div class="form-group <?php echo (!empty($PS_AFM_err)) ? 'has-error' : ''; ?>">
-                            <label>Public Servant ΑΦΜ</label>
-                            <input type="text" name="ps_AFM" class="form-control"><?php echo $ps_AFM; ?>
-                            <span class="help-block"><?php echo $ps_AFM_err; ?></span>
-                        </div>
-                        <div class="form-group <?php echo (!empty($coi_description_err)) ? 'has-error' : ''; ?>">
-                            <label>Conflict of Interest description</label>
-                            <input type="text" name="coi_description" class="form-control"><?php echo $coi_description; ?>
-                            <span class="help-block"><?php echo $coi_description_err; ?></span>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-default">Cancel</a>
-                    </form>
+
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h2>Disclose Conflict of Interest</h2>
                 </div>
+                <p>Please fill this form and submit to disclose a conflict of interest to the government official.</p>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <!-- <div class="form-group <?php echo (!empty($project_id_err)) ? 'has-error' : ''; ?>">
+                        <label>Project ID</label>
+                        <input type="text" name="project_id" class="form-control" value="<?php echo $project_id; ?>">
+                        <span class="help-block"><?php echo $project_id_err; ?></span>
+                    </div> -->
+                    <div class="form-group <?php echo (!empty($PS_AFM_err)) ? 'has-error' : ''; ?>">
+                        <label>Public Servant ΑΦΜ</label>
+                        <input type="text" disabled value=<?php echo $_SESSION['AFM'] ?> name="ps_AFM" class="form-control"><?php echo $ps_AFM; ?>
+                        <span class="help-block"><?php echo $ps_AFM_err; ?></span>
+                    </div>
+                    <?php require('connect.php');
+                    $AFM = $_SESSION['AFM'];
+                    $sql = "SELECT * FROM public_servants INNER JOIN projects ON projects.project_id = public_servants.project_id WHERE ps_AFM = $AFM ";
+                    $result = $conn->query($sql);
+                    ?>
+                    <div class="form-group <?php echo (!empty($project_id_err)) ? 'has-error' : ''; ?>">
+                        <label>Project Name</label>
+                        <select class="browser-default custom-select" name='project_id'>
+                            <?php while ($rows = $result->fetch_assoc()) {
+                                $project_name = $rows['project_name'];
+                                $project_id = $rows['project_id'];
+                                echo ("<option value='$project_id'>$project_name</option>");
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="form-group <?php echo (!empty($coi_description_err)) ? 'has-error' : ''; ?>">
+                        <label>Conflict of Interest description</label>
+                        <input type="text" name="coi_description" class="form-control"><?php echo $coi_description; ?>
+                        <span class="help-block"><?php echo $coi_description_err; ?></span>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <a href="projects_PS.php" class="btn btn-default">Cancel</a>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<?php include('footer.php') ?>
 </body>
 
 </html>
