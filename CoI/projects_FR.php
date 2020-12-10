@@ -86,15 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </nav>
 
 
-<!-- Tab links -->
-<div class="tab">
-  <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'View All Projects')">View All Projects</button>
-  <button class="tablinks" onclick="openTab(event, 'View Applied Projects')">View Applied Projects</button>
-  <button class="tablinks" onclick="openTab(event, 'View Firm Stakeholders')">View Firm Stakeholders</button>
-  <form method="post" action="logout.php" id="logoutform">
-    <button class="tablinks" id="logout-btn">Log Out</button>
-  </form>
-</div>
+
 
 <!-- Tab content -->
 <div id="View All Projects" class="tabcontent" id="defaultOpen">
@@ -183,35 +175,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
-<script>
-  function openTab(evt, tabName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-</script>
-
-
-<script>
-  // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();
-</script>
 
 
 
