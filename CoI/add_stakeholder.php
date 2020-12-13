@@ -75,11 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate project_des
-    $input_project_id = trim($_POST["project_id"]);
-    if (empty($input_project_id)) {
-        $project_id_error = "Please enter the project id.";
-    } else {
-        $project_id = $input_project_id;
+    if (isset($_POST["project_id"]) && !empty($_POST["project_id"])) {
+        // Get hidden input value
+        $project_id = $_POST["project_id"];
     }
 
     // // Validate usertype
@@ -129,12 +127,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-    <style type="text/css">
-        .wrapper {
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
+<style type="text/css">
+    .wrapper {
+        width: 500px;
+        margin: 0 auto;
+    }
+</style>
 
 
 <body>
@@ -162,11 +160,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" name="stakeholder_role" class="form-control" value="<?php echo $stakeholder_role; ?>">
                             <span class="help-block"><?php echo $stakeholder_role_err; ?></span>
                         </div>
-                        <div class="form-group <?php echo (!empty($project_id)) ? 'has-error' : ''; ?>">
+                        <?php
+                        $sql = "SELECT * FROM firms_projects INNER JOIN projects ON firms_projects.project_id = projects.project_id WHERE firm_id = 1 ";
+                        $result = $conn->query($sql); ?>
+                        <div class="form-group <?php echo (!empty($project_id_err)) ? 'has-error' : ''; ?>">
+                            <label>Project Name</label>
+                            <select class="browser-default custom-select" name='project_id'>
+                                <?php while ($rows = $result->fetch_assoc()) {
+                                    $project_name = $rows['project_name'];
+                                    $project_id = $rows['project_id'];
+                                    echo ("<option value='$project_id'>$project_name</option>");
+                                } ?>
+                            </select>
+                        </div>
+                        <!-- <div class="form-group <?php echo (!empty($project_id)) ? 'has-error' : ''; ?>">
                             <label>Project ID</label>
                             <input type="text" name="project_id" class="form-control"><?php echo $project_id; ?>
                             <span class="help-block"><?php echo $project_id_err; ?></span>
-                        </div>
+                        </div> -->
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="projects_FR.php" class="btn btn-default">Cancel</a>
                     </form>
