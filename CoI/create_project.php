@@ -4,7 +4,7 @@ include('connect.php');
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-include('navbar_GO.php')
+
 ?>
 
 
@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 ?>
-
+<?php include('navbar_GO.php') ?>
 
     <style type="text/css">
         .wrapper {
