@@ -12,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </button>
     <span class="navbar-text">
         Public Servant:
-        <?php echo $_SESSION["name"]; ?>
+        <?php echo $_SESSION["AFM"]; ?>
     </span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -102,8 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 
-<br>
-<br>
+
 <div class="wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -119,8 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="help-block"><?php echo $project_id_err; ?></span>
                     </div> -->
                     <div class="form-group <?php echo (!empty($PS_AFM_err)) ? 'has-error' : ''; ?>">
-                        <label>Public Servant ΑΦΜ</label>
-                        <input type="text" disabled value=<?php echo $_SESSION['AFM'] ?> name="ps_AFM" class="form-control"><?php echo $ps_AFM; ?>
+                        <input type="text" hidden value=<?php echo $_SESSION['AFM'] ?> name="ps_AFM" class="form-control"><?php echo $ps_AFM; ?>
                         <span class="help-block"><?php echo $ps_AFM_err; ?></span>
                     </div>
                     <?php require('connect.php');
