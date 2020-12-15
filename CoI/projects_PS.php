@@ -12,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </button>
     <span class="navbar-text">
         Public Servant:
-        <?php echo $_SESSION["AFM"]; ?>
+        <?php echo $_SESSION["name"]; ?>
     </span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">

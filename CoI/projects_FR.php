@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </button>
     <span class="navbar-text">
         Firm Representative:
-        <?php echo $_SESSION["AFM"]; ?>
+        <?php echo $_SESSION["name"]; ?>
     </span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
