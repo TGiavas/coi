@@ -5,7 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 ?>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Conflicts of Interest</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </button>
     <span class="navbar-text">
         Government Official:
-        <?php echo $_SESSION["AFM"]; ?>
+        <?php echo $_SESSION["name"]; ?>
     </span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -29,8 +28,14 @@ if (session_status() == PHP_SESSION_NONE) {
             <li class="nav-item">
                 <a class="nav-link" href="conflicts.php">Conflicts of Interest</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.php">Register User</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Users
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="view_users_GO.php">View Users</a>
+                    <a class="dropdown-item" href="register.php">Register User</a>
+                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
