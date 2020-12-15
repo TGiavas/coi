@@ -44,6 +44,7 @@ include('navbar_GO.php')
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
+        echo "<a href='add_firm_representative_GO.php' class='submit-button'>Add Firm Representative</a>";
         mysqli_close($conn);
         ?>
         </table>
