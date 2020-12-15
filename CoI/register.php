@@ -4,7 +4,7 @@ require_once "config.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-include('navbar_GO.php')
+
 ?>
 
 
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-
+<?php include('navbar_GO.php'); ?>
 
 <div class="wrapper-register">
     <ul class="flex-container">
