@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2020 at 05:35 PM
+-- Generation Time: Dec 15, 2020 at 06:47 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -49,18 +49,8 @@ INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_AFM`, `coi_description
 --
 -- Table structure for table `firm`
 --
-
-CREATE TABLE `firm` (
-  `firm_id` int(9) NOT NULL,
-  `firm_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `firm`
---
-
-INSERT INTO `firm` (`firm_id`, `firm_name`) VALUES
-(1, 'AKTOR');
+-- Error reading structure for table coi.firm: #1146 - Table 'coi.firm' doesn't exist
+-- Error reading data for table coi.firm: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `coi`.`firm`' at line 1
 
 -- --------------------------------------------------------
 
@@ -92,6 +82,14 @@ CREATE TABLE `firm_representatives` (
   `fr_AFM` int(9) NOT NULL,
   `firm_id` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `firm_representatives`
+--
+
+INSERT INTO `firm_representatives` (`fr_AFM`, `firm_id`) VALUES
+(155432111, 1),
+(666343321, 5);
 
 -- --------------------------------------------------------
 
@@ -142,7 +140,8 @@ INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `pro
 (14, 'Christmas decoration', '2020-12-03', '2021-01-26', 'Christmas decoration for Athens center'),
 (15, 'Public square renovation', '2020-12-03', '2021-06-18', 'Public square renovation in village Karydia Aitoloakarnanias'),
 (16, 'New military aircraft', '2020-11-11', '2021-12-22', 'Create new military aircraft for the army'),
-(17, 'Build a new street', '2020-12-15', '2021-05-04', 'Building new street');
+(17, 'Build a new street', '2020-12-15', '2021-05-04', 'Building new street'),
+(18, 'Renovate building', '2020-12-15', '2021-02-24', 'Building Renovation in Athens Center');
 
 -- --------------------------------------------------------
 
@@ -164,7 +163,8 @@ INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
 (123456789, 12, 'financial advisor'),
 (123456789, 16, 'technical engineer'),
 (144322567, 10, 'technical overseer'),
-(144322567, 11, 'economical overseer');
+(144322567, 11, 'economical overseer'),
+(144322567, 14, 'overseer');
 
 -- --------------------------------------------------------
 
@@ -190,7 +190,10 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 (155432111, 'Giannis Papadopoulos', '$2y$10$uIQVfiYUos87HBERGdPPyOlJZzFovf4e4bsELtVGSZlKB8xtubNY.', 'FR', '2020-12-02 18:49:59'),
 (156432111, 'Orestis Kanakis', '$2y$10$FeN1bcjnHxb/05JmLseE/.hes1FR1vk9UMGoC5xVNd4GrC/nd8y0q', 'FR', '2020-12-02 19:29:56'),
 (167222135, 'Thanos Giannakis', '$2y$10$XJj.JD60361vyy5r8Ke2heHoFmtkT2r.lqoZU.XNAxkOH54nFooZG', 'GO', '2020-12-02 19:32:43'),
-(555444333, 'George Efremoglou', '$2y$10$omH9lAXWSz3ewai6HDFTe.QET2FyMrrtvNmtBC3iXYzzjmwfUvZQO', 'GO', '2020-12-15 18:22:23');
+(333654745, 'Giannis Stekas', '$2y$10$LiMFP56Q3BJV/m.bnZdsQOhWMEwcp/6qITto.WAuOCuE5WWzyhdpK', 'FR', '2020-12-15 19:45:16'),
+(444333111, 'Ilias Petrou', '$2y$10$MMgkooPsa1cUQ1cABB8fFuAX3T4KIKzBLxG9XAO8E/4DLb31Al6o.', 'FR', '2020-12-15 19:43:57'),
+(555444333, 'George Efremoglou', '$2y$10$omH9lAXWSz3ewai6HDFTe.QET2FyMrrtvNmtBC3iXYzzjmwfUvZQO', 'GO', '2020-12-15 18:22:23'),
+(666343321, 'Petros Rousos', '$2y$10$eDNznYwDlJYTqgrx6yuHoeydhwBFIgZMpG6kBtwgdftqnHP74xLcq', 'FR', '2020-12-15 19:28:29');
 
 --
 -- Indexes for dumped tables
@@ -203,12 +206,6 @@ ALTER TABLE `conflicts`
   ADD PRIMARY KEY (`conflict_id`),
   ADD KEY `project_id` (`project_id`),
   ADD KEY `ps_AFM` (`ps_AFM`);
-
---
--- Indexes for table `firm`
---
-ALTER TABLE `firm`
-  ADD PRIMARY KEY (`firm_id`);
 
 --
 -- Indexes for table `firms_projects`
@@ -264,16 +261,10 @@ ALTER TABLE `conflicts`
   MODIFY `conflict_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `firm`
---
-ALTER TABLE `firm`
-  MODIFY `firm_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
@@ -291,20 +282,20 @@ ALTER TABLE `conflicts`
 --
 ALTER TABLE `firms_projects`
   ADD CONSTRAINT `firms_projects_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `firms_projects_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`);
+  ADD CONSTRAINT `firms_projects_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firms` (`firm_id`);
 
 --
 -- Constraints for table `firm_representatives`
 --
 ALTER TABLE `firm_representatives`
-  ADD CONSTRAINT `firm_representatives_ibfk_1` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`),
+  ADD CONSTRAINT `firm_representatives_ibfk_1` FOREIGN KEY (`firm_id`) REFERENCES `firms` (`firm_id`),
   ADD CONSTRAINT `firm_representatives_ibfk_2` FOREIGN KEY (`fr_AFM`) REFERENCES `users` (`AFM`);
 
 --
 -- Constraints for table `firm_stakeholders`
 --
 ALTER TABLE `firm_stakeholders`
-  ADD CONSTRAINT `firm_stakeholders_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`firm_id`),
+  ADD CONSTRAINT `firm_stakeholders_ibfk_2` FOREIGN KEY (`firm_id`) REFERENCES `firms` (`firm_id`),
   ADD CONSTRAINT `firm_stakeholders_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
 COMMIT;
 
