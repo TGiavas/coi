@@ -1,5 +1,7 @@
-<?php include('header.php');
+<?php
+include('header.php');
 include('connect.php');
+include('redirect_GO.php')
 ?>
 
 
@@ -13,7 +15,7 @@ include('connect.php');
 
 
     // Attempt select query execution
-    $sql = "SELECT * FROM conflicts  INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN public_servants ON conflicts.ps_id = public_servants.ps_AFM" ;
+    $sql = "SELECT * FROM conflicts  INNER JOIN projects ON conflicts.project_id = projects.project_id INNER JOIN public_servants ON conflicts.ps_id = public_servants.ps_AFM";
     if ($result = mysqli_query($conn, $sql)) {
         if (mysqli_num_rows($result) > 0) {
             echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -37,29 +39,13 @@ include('connect.php');
                 echo "<td>" . $row['ps_id'] . "</td>";
                 echo "<td>" . $row['ps_name'] . "</td>";
                 echo "<td>" . $row['coi_description'] . "</td>";
-                echo "<td><class='pull-left'form action='approve.php' method='POST'><input type='hidden' name='accept' value='".$row["conflict_id"]."'/><input type='submit' name='submit' value='Approve'/>
-                </form><class='pull-left' form action='decline.php' method='POST'><input type='hidden' name='decline' value='".$row["conflict_id"]."'/><input type='submit' name='submit' value='Reject'/></form></td>"; 
-                echo "<td>" . $row['status'] . "</td>";                  
-                //echo "<td>";
-                // echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
-                // echo " ";
-                // echo "<a href='delete.php?id=" . $row['project_id'] . "' title='Delete Record' data-toggle='tooltip'><span class='fa fa-trash'>  </span></a>";
+                echo "<td><class='pull-left'form action='approve.php' method='POST'><input type='hidden' name='accept' value='" . $row["conflict_id"] . "'/><input type='submit' name='submit' value='Approve'/>
+                </form><class='pull-left' form action='decline.php' method='POST'><input type='hidden' name='decline' value='" . $row["conflict_id"] . "'/><input type='submit' name='submit' value='Reject'/></form></td>";
+                echo "<td>" . $row['status'] . "</td>";
                 echo "</td>";
                 echo "</tr>";
             }
-            /*echo "</tbody>";
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>Project ID</th>";
-            echo "<th>Project Name</th>";
-            echo "<th>Project Date</th>";
-            echo "<th>Project Description</th>";
-            echo "<th>Public Servants</th>";
-            echo "<th>Action</th>";
-            echo "</tr>";
-            echo "</thead>";*/
             echo "</table>";
-            // Free result set
             mysqli_free_result($result);
         } else {
             echo "<p class='lead'><em>No records were found.</em></p>";

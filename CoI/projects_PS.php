@@ -1,8 +1,8 @@
 <?php 
 include('header.php');
 include('connect.php');
-include('navbar_PS.php');
 include('redirect_PS.php');
+include('navbar_PS.php');
 ?>
 
 

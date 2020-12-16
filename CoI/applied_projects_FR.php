@@ -1,8 +1,9 @@
 <?php
 include('header.php');
 include('connect.php');
-include('navbar_FR.php');
 include('redirect_FR.php');
+include('navbar_FR.php');
+
 ?>
 
 

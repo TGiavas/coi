@@ -1,7 +1,8 @@
-<?php include('header.php');
+<?php 
+include('header.php');
 include('connect.php');
-include('navbar_GO.php');
 include('redirect_GO.php');
+include('navbar_GO.php');
 ?>
 
 

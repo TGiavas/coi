@@ -2,14 +2,12 @@
 require_once "connect.php";
 
 
-    if (isset($_POST['conflict_id'])) {
+if (isset($_POST['conflict_id'])) {
 
-        $conflict_id = $_POST["conflict_id"];
-   
-        $sql = "UPDATE `conflicts` SET `status`= 'rejected' WHERE `conflict_id`= $conflict_id";       
-   
-        mysqli_query($conn,$sql);
-        header('Location: projects_GO.php');
+    $conflict_id = $_POST["conflict_id"];
 
+    $sql = "UPDATE `conflicts` SET `status`= 'rejected' WHERE `conflict_id`= $conflict_id";
 
-     }
+    mysqli_query($conn, $sql);
+    header('Location: projects_GO.php');
+}
