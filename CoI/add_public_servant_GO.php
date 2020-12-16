@@ -1,8 +1,6 @@
 <?php include('header.php');
 include('connect.php');
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+include('redirect_GO.php');
 ?>
 
 

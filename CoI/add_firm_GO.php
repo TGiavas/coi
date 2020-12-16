@@ -1,5 +1,6 @@
 <?php include('header.php');
 include('connect.php');
+include('redirect_GO.php');
 ?>
 
 

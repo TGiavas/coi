@@ -1,9 +1,6 @@
 <?php include('header.php');
 include('connect.php');
-require_once "config.php";
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+include('redirect_GO.php');
 include('navbar_GO.php');
 ?>
 

@@ -1,17 +1,13 @@
 
 <?php include('header.php');
 include('connect.php');
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
+include('redirect_GO.php');
 ?>
 
 
 
 <?php
-// Include config file
-require_once "connect.php";
+
 
 // Define variables and initialize with empty values
 $project_name = $project_start_date = $project_end_date = $project_desc = "";
