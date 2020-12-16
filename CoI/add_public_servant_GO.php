@@ -13,33 +13,25 @@ $ps_AFM_err = $project_id_err = $ps_role_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate project name
+
     if (isset($_POST["ps_AFM"]) && !empty($_POST["ps_AFM"])) {
         // Get hidden input value
         $ps_AFM = $_POST["ps_AFM"];
     }
 
-    // Validate start date
+
     $input_ps_role = trim($_POST["ps_role"]);
     if (empty($input_ps_role)) {
-        $ps_role = "Please enter the Stakeholder name.";
+        $ps_role = "Please enter the Public Servant name.";
     } else {
         $ps_role = $input_ps_role;
     }
-
-    // Validate project_des
     if (isset($_POST["project_id"]) && !empty($_POST["project_id"])) {
         // Get hidden input value
         $project_id = $_POST["project_id"];
     }
 
-    // // Validate usertype
-    // $input_public_servants = trim($_POST["public_servants"]);
-    // if (empty($input_public_servants)) {
-    //     $public_servants_err = "Please enter the public servants.";
-    // } else {
-    //     $public_servants = $input_public_servants;
-    // }
+
 
 
     // Check input errors before inserting in database
@@ -63,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("location:view_public_servants_GO.php");
                 exit();
             } else {
-                echo "Something went wrong. Please try again later.";
+                echo "Public servant is already assigned to this project.";
             }
         }
         // Close statement
@@ -128,11 +120,7 @@ include('navbar_GO.php');
                                 } ?>
                             </select>
                         </div>
-                        <!-- <div class="form-group <?php echo (!empty($project_id)) ? 'has-error' : ''; ?>">
-                            <label>Project ID</label>
-                            <input type="text" name="project_id" class="form-control"><?php echo $project_id; ?>
-                            <span class="help-block"><?php echo $project_id_err; ?></span>
-                        </div> -->
+
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="projects_FR.php" class="btn btn-default">Cancel</a>
                     </form>

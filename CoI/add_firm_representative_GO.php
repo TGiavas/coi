@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("location:view_firm_representatives_GO.php");
                 exit();
             } else {
-                echo "Something went wrong. Please try again later.";
+                echo "Firm representative has already been entered in the database.";
             }
         }
         // Close statement
