@@ -42,19 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate project_des
     $input_project_desc = trim($_POST["project_desc"]);
     if (empty($input_project_desc)) {
-        $project_desc_error = "Please enter the project description.";
+        $project_desc_err = "Please enter the project description.";
     } else {
         $project_desc = $input_project_desc;
     }
 
-    // // Validate usertype
-    // $input_public_servants = trim($_POST["public_servants"]);
-    // if (empty($input_public_servants)) {
-    //     $public_servants_err = "Please enter the public servants.";
-    // } else {
-    //     $public_servants = $input_public_servants;
-    // }
-
+ 
 
     // Check input errors before inserting in database
     if (empty($project_name_err) && empty($project_desc_err) && empty($project_start_date_err) && empty($project_end_date_err) ){
@@ -127,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="form-group <?php echo (!empty($project_desc)) ? 'has-error' : ''; ?>">
                             <label>Project Description</label>
-                            <input type = "text" name="project_desc" class="form-control"><?php echo $project_desc; ?>
+                            <input type ="text" name="project_desc" class="form-control" value="<?php echo $project_desc;?>">
                             <span class="help-block"><?php echo $project_desc_err; ?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
