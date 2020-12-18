@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Dec 18, 2020 at 07:15 PM
+=======
+-- Generation Time: Dec 18, 2020 at 05:47 PM
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -43,8 +47,12 @@ INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_AFM`, `coi_description
 (16, 10, 123456789, 'wife on firm board', 'rejected'),
 (18, 11, 144322567, 'I am project manager for this project on the firm', 'approved'),
 (26, 10, 144322567, 'board member', 'approved'),
+<<<<<<< HEAD
 (27, 11, 144322567, 'also member of the company', 'pending'),
 (28, 10, 144322567, 'On project team', 'pending');
+=======
+(27, 11, 144322567, 'also member of the company', 'pending');
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 
 -- --------------------------------------------------------
 
@@ -86,7 +94,10 @@ INSERT INTO `firms_projects` (`firm_id`, `project_id`) VALUES
 (1, 10),
 (1, 12),
 (1, 13),
+<<<<<<< HEAD
 (5, 15),
+=======
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 (5, 17),
 (5, 18);
 
@@ -168,8 +179,14 @@ CREATE TABLE `projects` (
   `project_name` varchar(255) NOT NULL,
   `project_start_date` date NOT NULL,
   `project_end_date` date NOT NULL,
+<<<<<<< HEAD
   `project_desc` varchar(1000) NOT NULL CHECK (`project_start_date` < `project_end_date` and `project_start_date` > '2019-01-01')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+=======
+  `project_desc` varchar(1000) NOT NULL
+  CHECK (project_start_date < project_end_date AND project_start_date > '2019-01-01')
+) ;
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 
 --
 -- Dumping data for table `projects`
@@ -185,8 +202,12 @@ INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `pro
 (16, 'New military aircraft', '2020-11-11', '2021-12-22', 'Create new military aircraft for the army'),
 (17, 'Build a new street', '2020-12-15', '2021-05-04', 'Building new street'),
 (18, 'Renovate building', '2020-12-15', '2021-02-24', 'Building Renovation in Athens Center'),
+<<<<<<< HEAD
 (19, 'New Cables', '2020-12-18', '2021-06-22', 'Underground cables'),
 (20, 'test', '2020-12-17', '2020-12-24', 'test');
+=======
+(19, 'New Cables', '2020-12-18', '2021-06-22', 'Underground cables');
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 
 -- --------------------------------------------------------
 
@@ -318,7 +339,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `conflicts`
 --
 ALTER TABLE `conflicts`
+<<<<<<< HEAD
   MODIFY `conflict_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+=======
+  MODIFY `conflict_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 
 --
 -- AUTO_INCREMENT for table `firms`
@@ -336,7 +361,11 @@ ALTER TABLE `log`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
+<<<<<<< HEAD
   MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+=======
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT;
+>>>>>>> d86cb9d920cd38a1aaa2e145d60e2af2ed3b3b5b
 
 --
 -- Constraints for dumped tables
