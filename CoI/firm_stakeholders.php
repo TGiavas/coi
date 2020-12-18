@@ -22,7 +22,7 @@ include('navbar_FR.php');
       $firm_id = $rows['firm_id'];
     }
     
-    $sql = "SELECT * FROM firm_stakeholders WHERE firm_id=$firm_id";
+    $sql = "SELECT * FROM firm_stakeholders INNER JOIN projects on firm_stakeholders.project_id = projects.project_id WHERE firm_id=$firm_id";
     if ($result = mysqli_query($conn, $sql)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='stakeholders' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -31,7 +31,7 @@ include('navbar_FR.php');
         echo "<th class='th-sm' id ='th-first' >ΑΦΜ</th>";
         echo "<th class='th-sm'>Name</th>";
         echo "<th class='th-sm'>Role</th>";
-        echo "<th class='th-sm' id='th-last'>Project ID</th>";
+        echo "<th class='th-sm' id='th-last'>Project Name</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -40,7 +40,7 @@ include('navbar_FR.php');
           echo "<td>" . $row['stakeholder_AFM'] . "</td>";
           echo "<td>" . $row['stakeholder_name'] . "</td>";
           echo "<td>" . $row['stakeholder_role'] . "</td>";
-          echo "<td>" . $row['project_id'] . "</td>";
+          echo "<td>" . $row['project_name'] . "</td>";
           echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
           echo " ";
           echo "<a href='delete.php?id=" . $row['project_id'] . "' title='Delete Record' data-toggle='tooltip'><span class='fa fa-trash'>  </span></a>";

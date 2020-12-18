@@ -72,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location: login.php");
+                header("location: view_users_GO.php");
             } else {
-                echo "Something went wrong. Please try again later.";
+                echo "User already exists in the database.";
             }
 
             // Close statement

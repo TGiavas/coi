@@ -25,7 +25,7 @@ while ($rows = $result->fetch_assoc()) {
 }
 
 
-// Processing form data when form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate project name
     $input_stakeholder_AFM = trim($_POST["stakeholder_AFM"]);
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stakeholder_AFM = $input_stakeholder_AFM;
     }
 
-    // Validate start date
+  
     $input_stakeholder_name = trim($_POST["stakeholder_name"]);
     if (empty($input_stakeholder_name)) {
         $stakeholder_name = "Please enter the Stakeholder name.";
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stakeholder_name = $input_stakeholder_name;
     }
 
-    // Validate end date
+
     $input_stakeholder_role = trim($_POST["stakeholder_role"]);
     if (empty($input_stakeholder_role)) {
         $stakeholder_role = "Please enter the Stakeholder role.";
@@ -51,19 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stakeholder_role = $input_stakeholder_role;
     }
 
-    // Validate project_des
     if (isset($_POST["project_id"]) && !empty($_POST["project_id"])) {
         // Get hidden input value
         $project_id = $_POST["project_id"];
     }
-
-    // // Validate usertype
-    // $input_public_servants = trim($_POST["public_servants"]);
-    // if (empty($input_public_servants)) {
-    //     $public_servants_err = "Please enter the public servants.";
-    // } else {
-    //     $public_servants = $input_public_servants;
-    // }
 
 
 
@@ -87,10 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Records created successfully. Redirect to landing page
-                header("location: projects_FR.php");
+                header("location: firm_stakeholders.php");
                 exit();
             } else {
-                echo "Something went wrong. Please try again later.";
+                echo "Stakeholder is already assigned in this project";
             }
         }
 
@@ -150,11 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 } ?>
                             </select>
                         </div>
-                        <!-- <div class="form-group <?php echo (!empty($project_id)) ? 'has-error' : ''; ?>">
-                            <label>Project ID</label>
-                            <input type="text" name="project_id" class="form-control"><?php echo $project_id; ?>
-                            <span class="help-block"><?php echo $project_id_err; ?></span>
-                        </div> -->
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="projects_FR.php" class="btn btn-default">Cancel</a>
                     </form>

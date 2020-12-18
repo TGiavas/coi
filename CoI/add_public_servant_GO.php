@@ -85,9 +85,9 @@ include('navbar_GO.php');
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h2>Add Public Servant</h2>
+                        <h2>Assign Public Servant</h2>
                     </div>
-                    <p>Please fill this form and submit to add a new public servant to the database.</p>
+                    <p>Please fill this form and submit to assing a public servant to a project.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <?php
                         $sql = "SELECT * FROM users WHERE user_type = 'PS' ORDER BY name";
