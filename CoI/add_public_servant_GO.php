@@ -1,6 +1,7 @@
 <?php include('header.php');
 include('connect.php');
 include('redirect_GO.php');
+include('log.php');
 ?>
 
 
@@ -51,7 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-                // Records created successfully. Redirect to landing page
+                $message = "Inserted ". $ps_AFM ." into the public servants table";
+                logAction($message, $conn);
                 header("location:view_public_servants_GO.php");
                 exit();
             } else {

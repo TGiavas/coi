@@ -1,6 +1,7 @@
 <?php include('header.php');
 include('connect.php');
 include('redirect_GO.php');
+include('log.php');
 ?>
 
 
@@ -20,19 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    // Validate project_des
+
     if (isset($_POST["firm_id"]) && !empty($_POST["firm_id"])) {
         // Get hidden input value
         $firm_id = $_POST["firm_id"];
     }
-
-    // // Validate usertype
-    // $input_public_servants = trim($_POST["public_servants"]);
-    // if (empty($input_public_servants)) {
-    //     $public_servants_err = "Please enter the public servants.";
-    // } else {
-    //     $public_servants = $input_public_servants;
-    // }
 
 
     // Check input errors before inserting in database
@@ -51,7 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-                // Records created successfully. Redirect to landing page
+                $message = "Inserted ". $fr_AFM ." into the firm representatives table";
+                logAction($message, $conn);
                 header("location:view_firm_representatives_GO.php");
                 exit();
             } else {
@@ -114,11 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 } ?>
                             </select>
                         </div>
-                        <!-- <div class="form-group <?php echo (!empty($firm_id)) ? 'has-error' : ''; ?>">
-                            <label>Project ID</label>
-                            <input type="text" name="firm_id" class="form-control"><?php echo $firm_id; ?>
-                            <span class="help-block"><?php echo $fr_AFM_err; ?></span>
-                        </div> -->
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="projects_FR.php" class="btn btn-default">Cancel</a>
                     </form>

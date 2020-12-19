@@ -2,14 +2,11 @@
 include('header.php');
 include('connect.php');
 include('redirect_PS.php');
+include('log.php');
 ?>
 
 
 <?php
-
-include('header.php');
-// Include config file
-require_once "connect.php";
 
 // Define variables and initialize with empty values
 $project_id = $ps_AFM = $coi_description = "";
@@ -52,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Records created successfully. Redirect to landing page
+                $message = "Disclosed conflict of interest \"" . $coi_description . "\" for project with id = " .$project_id;
+                logAction($message, $conn);
                 header("location: projects_PS.php");
                 exit();
             } else {

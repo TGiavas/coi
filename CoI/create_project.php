@@ -2,6 +2,7 @@
 <?php include('header.php');
 include('connect.php');
 include('redirect_GO.php');
+include('log.php');
 ?>
 
 
@@ -68,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-                // Records created successfully. Redirect to landing page
+                $message = "Inserted ". $project_name ."project into the projects table";
+                logAction($message, $conn);
                 header("location: projects_GO.php");
                 exit();
             } else {

@@ -4,13 +4,7 @@ include('header.php');
 include('connect.php');
 include('redirect_FR.php');
 include('navbar_FR.php');
-
-
-
-
-
-
-
+include('log.php');
 
 $project_id = $_POST['idInput'];
 
@@ -45,7 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_num_rows($stmt) > 0) {
               //Adds application to the firm_project table.
               if ($conn->query($sql) === TRUE) {
-                //echo "Applied successfully";
+                $message = "Applied for project " . $project_id;
+                logAction($message, $conn);
               } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
               }

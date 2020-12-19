@@ -1,4 +1,6 @@
 <?php
+include('log.php');
+include('connect.php');
 //Initialize the session
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
@@ -84,8 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $_SESSION["name"] = $name;
               $_SESSION["user_type"] = $user_type;
 
+              $message = $AFM . " has logged in.";
+              logAction($message, $conn);
               // Redirect user to welcome page
-              if ($_SESSION["user_type"] == "GO") { //check usertype
+              if ($_SESSION["user_type"] == "GO") { //check usertype         
                 header("Location:projects_GO.php");
               } else if ($_SESSION["user_type"] == "FR") {
                 header("Location:projects_FR.php"); 

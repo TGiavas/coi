@@ -3,6 +3,7 @@ include('header.php');
 include('connect.php');
 include('redirect_FR.php');
 include('navbar_FR.php');
+include('log.php');
 
 ?>
 
@@ -77,7 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-                // Records created successfully. Redirect to landing page
+                $message = "Inserted ". $stakeholder_AFM ." into the stakeholders table";
+                logAction($message, $conn);
                 header("location: firm_stakeholders.php");
                 exit();
             } else {
