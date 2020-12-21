@@ -22,8 +22,8 @@ include('navbar_PS.php');
                 echo "<tr>";
                 echo "<th class='th-sm' id ='th-first' >Project ID</th>";
                 echo "<th class='th-sm'>Project Name</th>";
-                echo "<th class='th-sm'>Project Start Date Date</th>";
-                echo "<th class='th-sm'>Project End Date Date Date</th>";
+                echo "<th class='th-sm'>Project Start Date </th>";
+                echo "<th class='th-sm'>Project End Date </th>";
                 echo "<th class='th-sm' id='th-last'>Project Description</th>";
                 /*echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";*/
                 echo "</tr>";
