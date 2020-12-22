@@ -15,7 +15,9 @@ include('navbar_FR.php');
     </div>
     <?php
 
-    $sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM";
+    
+    $fr_AFM = $_SESSION["AFM"];
+    $sql = "SELECT * FROM firm_representatives WHERE fr_AFM = $fr_AFM";
     $result = $conn->query($sql);
     $firm_id = "";
     while ($rows = $result->fetch_assoc()) {
