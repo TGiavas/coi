@@ -7,14 +7,14 @@ include('navbar_FR.php');
 include('log.php');
 
 $project_id = $_POST['idInput'];
-
-$sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM";
-$result = $conn->query($sql); 
+$fr_AFM = $_SESSION["AFM"];
+$sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM where fr_AFM = $fr_AFM";
+$result = $conn->query($sql);
 $firm_id = "";
 while ($rows = $result->fetch_assoc()) {
   $firm_id = $rows['firm_id'];
 }
-
+echo "$firm_id";
 
 $sql = "INSERT INTO firms_projects(firm_id, project_id) VALUES ($firm_id, '$project_id')";
 $sqlDupe = "SELECT * FROM firms_projects WHERE project_id = '$project_id' AND firm_id = 'test'";
