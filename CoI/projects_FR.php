@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Attempt select query execution
-    $sql = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc FROM projects";
+    $sql = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc, firms_projects.date_applied FROM projects LEFT JOIN firms_projects ON projects.project_id = firms_projects.project_id";
     if ($result = mysqli_query($conn, $sql)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -100,7 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<th class='th-sm'>Project Name</th>";
         echo "<th class='th-sm'>Project Start Date Date</th>";
         echo "<th class='th-sm'>Project End Date Date Date</th>";
-        echo "<th class='th-sm' id='th-last'>Project Description</th>";
+        echo "<th class='th-sm'>Project Description</th>";
+        echo "<th class='th-sm' id='th-last'>Date Applied</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -111,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<td>" . $row['project_start_date'] . "</td>";
           echo "<td>" . $row['project_end_date'] . "</td>";
           echo "<td>" . $row['project_desc'] . "</td>";
+          echo "<td>" . $row['date_applied'] . "</td>";
 
           echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
           echo " ";
