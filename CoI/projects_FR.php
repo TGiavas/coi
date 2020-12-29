@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Attempt select query execution
-    $sql = "SELECT * FROM projects";
+    $sql = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc FROM projects";
     if ($result = mysqli_query($conn, $sql)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
@@ -111,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<td>" . $row['project_start_date'] . "</td>";
           echo "<td>" . $row['project_end_date'] . "</td>";
           echo "<td>" . $row['project_desc'] . "</td>";
+
           echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
           echo " ";
           echo "<a href='delete.php?id=" . $row['project_id'] . "' title='Delete Record' data-toggle='tooltip'><span class='fa fa-trash'>  </span></a>";

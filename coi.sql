@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2020 at 01:57 PM
+-- Generation Time: Dec 29, 2020 at 08:29 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `conflicts` (
-  `conflict_id` int(9) NOT NULL,
   `project_id` int(9) NOT NULL,
   `ps_AFM` int(9) NOT NULL,
   `coi_description` varchar(500) NOT NULL,
@@ -39,14 +38,9 @@ CREATE TABLE `conflicts` (
 -- Dumping data for table `conflicts`
 --
 
-INSERT INTO `conflicts` (`conflict_id`, `project_id`, `ps_AFM`, `coi_description`, `status`) VALUES
-(16, 10, 123456789, 'wife on firm board', 'approved'),
-(18, 11, 144322567, 'I am project manager for this project on the firm', 'approved'),
-(26, 10, 144322567, 'board member', 'approved'),
-(27, 11, 144322567, 'also member of the company', 'approved'),
-(28, 10, 144322567, 'On project team', 'rejected'),
-(29, 12, 123456789, 'Also working on project for the firm', 'pending'),
-(30, 12, 123456789, 'also working on the project for the firm', 'pending');
+INSERT INTO `conflicts` (`project_id`, `ps_AFM`, `coi_description`, `status`) VALUES
+(10, 144322567, 'wife on firm board', 'pending'),
+(11, 144322567, 'working on team project', 'pending');
 
 -- --------------------------------------------------------
 
@@ -77,21 +71,16 @@ INSERT INTO `firms` (`firm_id`, `firm_name`) VALUES
 
 CREATE TABLE `firms_projects` (
   `firm_id` int(9) NOT NULL COMMENT '9',
-  `project_id` int(9) NOT NULL
+  `project_id` int(9) NOT NULL,
+  `date_applied` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `firms_projects`
 --
 
-INSERT INTO `firms_projects` (`firm_id`, `project_id`) VALUES
-(1, 10),
-(1, 12),
-(1, 13),
-(5, 15),
-(5, 16),
-(5, 17),
-(5, 18);
+INSERT INTO `firms_projects` (`firm_id`, `project_id`, `date_applied`) VALUES
+(1, 10, '2020-12-29');
 
 -- --------------------------------------------------------
 
@@ -169,7 +158,39 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (19, 144322567, '144322567 has logged out.', '2020-12-19 20:03:22'),
 (20, 333654745, '333654745 has logged in.', '2020-12-19 20:06:37'),
 (21, 333654745, 'Applied for project 16', '2020-12-19 20:06:43'),
-(22, 333654745, '333654745 has logged out.', '2020-12-19 20:10:34');
+(22, 333654745, '333654745 has logged out.', '2020-12-19 20:10:34'),
+(23, 555444333, '555444333 has logged in.', '2020-12-21 13:25:33'),
+(24, 155432111, '155432111 has logged in.', '2020-12-22 14:17:36'),
+(25, 155432111, '155432111 has logged out.', '2020-12-22 14:17:52'),
+(26, 444333111, '444333111 has logged in.', '2020-12-22 14:18:01'),
+(27, 444333111, '444333111 has logged out.', '2020-12-22 14:18:13'),
+(28, 666343321, '666343321 has logged in.', '2020-12-22 14:18:21'),
+(29, 666343321, '666343321 has logged out.', '2020-12-22 14:22:24'),
+(30, 155432111, '155432111 has logged in.', '2020-12-22 14:22:33'),
+(31, 155432111, 'Applied for project 14', '2020-12-22 14:32:20'),
+(32, 155432111, 'Applied for project 11', '2020-12-22 14:55:22'),
+(33, 155432111, '155432111 has logged out.', '2020-12-22 14:56:59'),
+(34, 666343321, '666343321 has logged in.', '2020-12-22 14:57:10'),
+(35, 666343321, 'Applied for project 12', '2020-12-22 14:57:20'),
+(36, 555123567, '555123567 has logged in.', '2020-12-26 13:53:14'),
+(37, 555123567, '555123567 has logged out.', '2020-12-26 13:53:29'),
+(38, 144322567, '144322567 has logged in.', '2020-12-26 13:53:41'),
+(39, 144322567, '144322567 has logged out.', '2020-12-26 13:56:25'),
+(40, 123456789, '123456789 has logged in.', '2020-12-26 13:56:36'),
+(41, 123456789, '123456789 has logged out.', '2020-12-26 13:56:43'),
+(42, 167222135, '167222135 has logged in.', '2020-12-26 13:56:54'),
+(43, 167222135, '167222135 has logged out.', '2020-12-26 14:23:28'),
+(44, 144322567, '144322567 has logged in.', '2020-12-26 14:23:48'),
+(45, 144322567, '144322567 has logged out.', '2020-12-26 14:24:57'),
+(46, 167222135, '167222135 has logged in.', '2020-12-26 14:25:12'),
+(47, 144322567, '144322567 has logged in.', '2020-12-29 17:55:13'),
+(48, 144322567, 'Disclosed conflict of interest \"wife on firm board\" for project with id = 10', '2020-12-29 18:02:50'),
+(49, 144322567, 'Disclosed conflict of interest \"wife on firm board\" for project with id = 10', '2020-12-29 18:11:12'),
+(50, 144322567, 'Disclosed conflict of interest \"wife on firm board\" for project with id = 10', '2020-12-29 18:25:03'),
+(51, 144322567, 'Disclosed conflict of interest \"working on team project\" for project with id = 11', '2020-12-29 18:52:54'),
+(52, 144322567, '144322567 has logged out.', '2020-12-29 19:03:19'),
+(53, 156432111, '156432111 has logged in.', '2020-12-29 19:03:57'),
+(54, 156432111, 'Applied for project 10', '2020-12-29 19:05:36');
 
 -- --------------------------------------------------------
 
@@ -264,7 +285,7 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 -- Indexes for table `conflicts`
 --
 ALTER TABLE `conflicts`
-  ADD PRIMARY KEY (`conflict_id`),
+  ADD PRIMARY KEY (`project_id`,`ps_AFM`),
   ADD KEY `project_id` (`project_id`),
   ADD KEY `ps_AFM` (`ps_AFM`);
 
@@ -272,7 +293,8 @@ ALTER TABLE `conflicts`
 -- Indexes for table `firms`
 --
 ALTER TABLE `firms`
-  ADD PRIMARY KEY (`firm_id`);
+  ADD PRIMARY KEY (`firm_id`),
+  ADD UNIQUE KEY `firm_name` (`firm_name`);
 
 --
 -- Indexes for table `firms_projects`
@@ -329,12 +351,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `conflicts`
---
-ALTER TABLE `conflicts`
-  MODIFY `conflict_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
 -- AUTO_INCREMENT for table `firms`
 --
 ALTER TABLE `firms`
@@ -344,7 +360,7 @@ ALTER TABLE `firms`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `projects`
