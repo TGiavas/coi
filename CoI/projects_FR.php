@@ -14,10 +14,9 @@ $firm_id = "";
 while ($rows = $result->fetch_assoc()) {
   $firm_id = $rows['firm_id'];
 }
-echo "$firm_id";
 
 $sql = "INSERT INTO firms_projects(firm_id, project_id) VALUES ($firm_id, '$project_id')";
-$sqlDupe = "SELECT * FROM firms_projects WHERE project_id = '$project_id' AND firm_id = 'test'";
+$sqlDupe = "SELECT * FROM firms_projects WHERE project_id = '$project_id' AND firm_id = $firm_id";
 $sqlExists = "SELECT * FROM projects WHERE project_id = '$project_id'";
 
 
@@ -66,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div id="View All Projects" class="tabcontent" id="defaultOpen">
 
   <script>
-  /*
+  
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
@@ -79,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function alreadyApplied() {
       alert("You have already applied for this project");
     }
-    */
+    
   </script>
 
   <div class="wrapper-table">
@@ -90,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Attempt select query execution
-    $sql = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc, firms_projects.date_applied FROM projects LEFT JOIN firms_projects ON projects.project_id = firms_projects.project_id";
-    if ($result = mysqli_query($conn, $sql)) {
+    $sql2 = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc, firms_projects.date_applied FROM projects LEFT JOIN firms_projects ON projects.project_id = firms_projects.project_id AND firms_projects.firm_id = $firm_id";
+    if ($result = mysqli_query($conn, $sql2)) {
       if (mysqli_num_rows($result) > 0) {
         echo  "<table id='projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";
         echo "<thead>";
@@ -113,11 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo "<td>" . $row['project_end_date'] . "</td>";
           echo "<td>" . $row['project_desc'] . "</td>";
           echo "<td>" . $row['date_applied'] . "</td>";
-
-          echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
-          echo " ";
-          echo "<a href='delete.php?id=" . $row['project_id'] . "' title='Delete Record' data-toggle='tooltip'><span class='fa fa-trash'>  </span></a>";
-          echo "</td>";
           echo "</tr>";
         }
         echo "</table>";
@@ -128,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p class='lead'><em>No records were found.</em></p>";
       }
     } else {
-      echo "ERROR: Could not execute $sql. " . mysqli_error($conn);
+      echo "ERROR: Could not execute $sql2. " . mysqli_error($conn);
     }
 
     // Applied project list.

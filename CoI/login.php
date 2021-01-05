@@ -85,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $_SESSION["AFM"] = $AFM;
               $_SESSION["name"] = $name;
               $_SESSION["user_type"] = $user_type;
+          
 
               $message = $AFM . " has logged in.";
               logAction($message, $conn);

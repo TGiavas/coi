@@ -2,17 +2,21 @@
 include('log.php');
 require_once "connect.php";
 
+    if (isset($_POST['project_id']) && isset($_POST['ps_AFM'])) {
 
-if (isset($_POST['conflict_id'])) {
+        $project_id = $_POST["project_id"];
+        $ps_AFM = $_POST["ps_AFM"];
+   
+        $sql = "UPDATE `conflicts` SET `status`= 'rejected' WHERE `project_id`= $project_id AND ps_AFM = $ps_AFM";       
+   
+        mysqli_query($conn,$sql);
 
-    $conflict_id = $_POST["conflict_id"];
+        $message = "Set conflict with id = " . $project_id . " ps_AFM " . $ps_AFM . " status to rejected";
+        logAction($message, $conn);
 
-    $sql = "UPDATE `conflicts` SET `status`= 'rejected' WHERE `conflict_id`= $conflict_id";
 
-    mysqli_query($conn, $sql);
 
-    $message = "Set conflict with id = " . $conflict_id . " status to rejected";
-    logAction($message, $conn);
+        header('Location: conflicts.php');
 
-    header('Location: conflicts.php');
-}
+
+     }

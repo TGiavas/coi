@@ -18,8 +18,9 @@ $stakeholder_AFM = $stakeholder_name = $stakeholder_role = $project_id = "";
 $stakeholder_AFM_err = $stakeholder_name_err = $stakeholder_role_err = $project_id_err = "";
 
 
-$sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM";
-$result = $conn->query($sql); 
+$fr_AFM = $_SESSION["AFM"];
+$sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM where fr_AFM = $fr_AFM";
+$result = $conn->query($sql);
 $firm_id = "";
 while ($rows = $result->fetch_assoc()) {
   $firm_id = $rows['firm_id'];

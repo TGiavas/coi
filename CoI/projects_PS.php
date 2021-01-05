@@ -15,7 +15,7 @@ include('navbar_PS.php');
         // Attempt select query execution
         $AFM = $_SESSION['AFM'];
         $sql = "SELECT projects.project_id, projects.project_name, projects.project_start_date, projects.project_end_date, projects.project_desc, conflicts.coi_description
-        FROM projects LEFT JOIN public_servants ON projects.project_id = public_servants.project_id LEFT JOIN conflicts ON projects.project_id = conflicts.project_id  WHERE public_servants.ps_AFM = $AFM";
+        FROM public_servants LEFT JOIN projects ON public_servants.project_id = projects.project_id LEFT JOIN conflicts ON projects.project_id = conflicts.project_id AND conflicts.ps_AFM = $AFM WHERE public_servants.ps_AFM = $AFM";
         if ($result = mysqli_query($conn, $sql)) {
             if (mysqli_num_rows($result) > 0) {
                 echo  "<table id='ps_projects' class='table table-striped table-sm project-table' cellspacing='0' width='100%'>";

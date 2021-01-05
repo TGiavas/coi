@@ -12,15 +12,16 @@ include('navbar_FR.php');
 <div id="View Firm Stakeholders" class="tabcontent">
   <div class="wrapper-table">
     <div class="page-header clearfix">
-      <h2 class="pull-left">Firm Stakholders</h2>
+      <h2 class="pull-left">Firm Stakeholders</h2>
     </div>
     <?php 
-    $sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM";
-    $result = $conn->query($sql); 
-    $firm_id = "";
-    while ($rows = $result->fetch_assoc()) {
-      $firm_id = $rows['firm_id'];
-    }
+$fr_AFM = $_SESSION["AFM"];
+$sql = "SELECT * FROM users INNER JOIN firm_representatives ON users.AFM = firm_representatives.fr_AFM where fr_AFM = $fr_AFM";
+$result = $conn->query($sql);
+$firm_id = "";
+while ($rows = $result->fetch_assoc()) {
+  $firm_id = $rows['firm_id'];
+}
     
     $sql = "SELECT * FROM firm_stakeholders INNER JOIN projects on firm_stakeholders.project_id = projects.project_id WHERE firm_id=$firm_id";
     if ($result = mysqli_query($conn, $sql)) {
@@ -31,7 +32,8 @@ include('navbar_FR.php');
         echo "<th class='th-sm' id ='th-first' >ΑΦΜ</th>";
         echo "<th class='th-sm'>Name</th>";
         echo "<th class='th-sm'>Role</th>";
-        echo "<th class='th-sm' id='th-last'>Project Name</th>";
+        echo "<th class='th-sm' id=>Project Name</th>";
+        echo "<th class='th-sm' id='th-last'>Action</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -41,9 +43,7 @@ include('navbar_FR.php');
           echo "<td>" . $row['stakeholder_name'] . "</td>";
           echo "<td>" . $row['stakeholder_role'] . "</td>";
           echo "<td>" . $row['project_name'] . "</td>";
-          echo "<a href='update.php?id=" . $row['project_id'] . "' title='Update Record' data-toggle='tooltip'><span class='fa fa-pencil'>  </span></a>";
-          echo " ";
-          echo "<a href='delete.php?id=" . $row['project_id'] . "' title='Delete Record' data-toggle='tooltip'><span class='fa fa-trash'>  </span></a>";
+          echo "<td><a href='delete_firm_stakeholder.php?stakeholder_AFM=$row[stakeholder_AFM]&project_id=$row[project_id]"  .  "' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'>  </span></a>";
           echo "</td>";
           echo "</tr>";
         }

@@ -21,7 +21,8 @@ include('navbar_GO.php');
                 echo "<th class='th-sm' id ='th-first' >Public Servant ΑΦΜ</th>";
                 echo "<th class='th-sm'>Public Servant Name</th>";
                 echo "<th class='th-sm'>Project Name</th>";
-                echo "<th class='th-sm' id='th-last'>Public Servant Role</th>";
+                echo "<th class='th-sm'>Public Servant Role</th>";
+                echo "<th class='th-sm'  id='th-last' style='width: 5%'>Action</th>";
                 /*echo "<th class='th-sm' id ='th-last' style='width: 5%'>Action</th>";*/
                 echo "</tr>";
                 echo "</thead>";
@@ -32,6 +33,7 @@ include('navbar_GO.php');
                     echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['project_name'] . "</td>";
                     echo "<td>" . $row['ps_role'] . "</td>";
+                    echo "<td><a href='delete_public_servant.php?ps_AFM=" . $row['ps_AFM'] . "' title='Delete Record' data-toggle='tooltip'><i class='fas fa-trash'></i></td> ";
                     echo "</td>";
                     echo "</tr>";
                 }

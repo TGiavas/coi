@@ -38,12 +38,18 @@ include('navbar_GO.php')
                     echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['coi_description'] . "</td>";
                     echo "<td><form method='POST'class='coi-btn-form' action='approve_coi.php'>
-                    <input type='hidden' name='conflict_id' value='" . $row["conflict_id"] . "'/>
-                    <input type='submit' name='submit' value='Approve'/>
+                    <input type='hidden' name='project_id' value='" . $row["project_id"] . "'/>
+                    <input type='hidden' name='ps_AFM' value='" . $row["ps_AFM"] . "'/>
+                    <button type='submit'class='btn btn-success' name='submit' value='Approve'/>
+                    <span class='fas fa-check'>  </span>
+                    </button>
                     </form>
                     <form method='POST' class='coi-btn-form' action='reject_coi.php'>
-                    <input type='hidden' name='conflict_id' value='" . $row["conflict_id"] . "'/>
-                    <input type='submit' name='submit' value='Reject'/>
+                    <input type='hidden' name='project_id' value='" . $row["project_id"] . "'/>
+                    <input type='hidden' name='ps_AFM' value='" . $row["ps_AFM"] . "'/>
+                    <button type='submit'class='btn btn-success' name='submit' value='Reject'/>
+                    <span class='fas fa-times'>  </span>
+                    </button>
                     </form>
                     </td>";
                     echo "<td>" . $row['status'] . "</td>";

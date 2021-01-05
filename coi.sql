@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2020 at 08:29 PM
+-- Generation Time: Jan 05, 2021 at 07:20 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -39,8 +39,9 @@ CREATE TABLE `conflicts` (
 --
 
 INSERT INTO `conflicts` (`project_id`, `ps_AFM`, `coi_description`, `status`) VALUES
-(10, 144322567, 'wife on firm board', 'pending'),
-(11, 144322567, 'working on team project', 'pending');
+(10, 123456789, 'asdf', 'rejected'),
+(10, 144322567, 'wife on firm board', 'approved'),
+(11, 144322567, 'working on team project', 'rejected');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,13 @@ CREATE TABLE `firms_projects` (
 --
 
 INSERT INTO `firms_projects` (`firm_id`, `project_id`, `date_applied`) VALUES
-(1, 10, '2020-12-29');
+(1, 10, '2020-12-29'),
+(1, 11, '2021-01-05'),
+(1, 12, '2021-01-05'),
+(1, 13, '2020-12-29'),
+(1, 14, '2021-01-05'),
+(5, 11, '2021-01-05'),
+(5, 14, '2021-01-05');
 
 -- --------------------------------------------------------
 
@@ -101,7 +108,8 @@ INSERT INTO `firm_representatives` (`fr_AFM`, `firm_id`) VALUES
 (155432111, 1),
 (156432111, 1),
 (444333111, 1),
-(666343321, 5);
+(666343321, 5),
+(333654745, 25);
 
 -- --------------------------------------------------------
 
@@ -122,13 +130,9 @@ CREATE TABLE `firm_stakeholders` (
 --
 
 INSERT INTO `firm_stakeholders` (`stakeholder_AFM`, `stakeholder_name`, `firm_id`, `stakeholder_role`, `project_id`) VALUES
-(123123123, 'Giannis Petrakis', 1, 'Board member', 10),
-(123123123, 'Giannis Evangelou', 5, 'Project Manager', 15),
-(123123123, 'Giannis Evangelou', 5, 'Project Manager', 17),
+(133222666, 'Petros Sxinas', 5, 'Project Manager', 11),
 (233145666, 'Pavlos Diogenous', 1, 'Shareholder in the company', 13),
-(444333666, 'Tasos Samaropoulos', 5, 'Team director', 18),
-(555111333, 'Giannis Sxinas', 1, 'board director', 10),
-(777444222, 'Petros Koufalas', 5, 'Software Engineer', 17);
+(555111333, 'Giannis Sxinas', 1, 'board director', 10);
 
 -- --------------------------------------------------------
 
@@ -190,7 +194,41 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (51, 144322567, 'Disclosed conflict of interest \"working on team project\" for project with id = 11', '2020-12-29 18:52:54'),
 (52, 144322567, '144322567 has logged out.', '2020-12-29 19:03:19'),
 (53, 156432111, '156432111 has logged in.', '2020-12-29 19:03:57'),
-(54, 156432111, 'Applied for project 10', '2020-12-29 19:05:36');
+(54, 156432111, 'Applied for project 10', '2020-12-29 19:05:36'),
+(55, 155432111, '155432111 has logged in.', '2020-12-29 19:58:32'),
+(56, 155432111, 'Applied for project 13', '2020-12-29 20:02:08'),
+(57, 144322567, '144322567 has logged in.', '2020-12-29 21:42:40'),
+(58, 167222135, '167222135 has logged in.', '2021-01-05 16:20:34'),
+(59, 167222135, 'Inserted 123456789 into the public servants table', '2021-01-05 16:40:56'),
+(60, 167222135, '167222135 has logged out.', '2021-01-05 16:42:40'),
+(61, 333654745, '333654745 has logged in.', '2021-01-05 16:43:03'),
+(62, 333654745, '333654745 has logged out.', '2021-01-05 17:34:27'),
+(63, 155432111, '155432111 has logged in.', '2021-01-05 17:34:54'),
+(64, 155432111, 'Applied for project 11', '2021-01-05 17:35:39'),
+(65, 155432111, 'Applied for project 12', '2021-01-05 17:35:50'),
+(66, 155432111, '155432111 has logged out.', '2021-01-05 17:36:00'),
+(67, 666343321, '666343321 has logged in.', '2021-01-05 17:36:17'),
+(68, 666343321, 'Applied for project 11', '2021-01-05 17:39:52'),
+(69, 666343321, 'Applied for project 14', '2021-01-05 17:42:35'),
+(70, 666343321, 'Inserted 567111333 into the stakeholders table', '2021-01-05 17:44:53'),
+(71, 666343321, 'Inserted 133222666 into the stakeholders table', '2021-01-05 17:46:56'),
+(72, 666343321, '666343321 has logged out.', '2021-01-05 17:47:38'),
+(73, 123456789, '123456789 has logged in.', '2021-01-05 17:47:53'),
+(74, 123456789, 'Disclosed conflict of interest \"asdf\" for project with id = 10', '2021-01-05 17:48:05'),
+(75, 123456789, '123456789 has logged out.', '2021-01-05 17:57:48'),
+(76, 144322567, '144322567 has logged in.', '2021-01-05 17:58:18'),
+(77, 144322567, '144322567 has logged out.', '2021-01-05 17:59:07'),
+(78, 167222135, '167222135 has logged in.', '2021-01-05 17:59:45'),
+(79, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-05 18:08:13'),
+(80, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to rejected', '2021-01-05 18:09:40'),
+(81, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-05 18:17:48'),
+(82, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to approved', '2021-01-05 18:17:51'),
+(83, 167222135, 'Set conflict with id = 11 ps_AFM 144322567 status to rejected', '2021-01-05 18:18:37'),
+(84, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to rejected', '2021-01-05 18:18:39'),
+(85, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to approved', '2021-01-05 18:18:40'),
+(86, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-05 18:18:41'),
+(87, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-05 18:18:41'),
+(88, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-05 18:19:21');
 
 -- --------------------------------------------------------
 
@@ -240,11 +278,11 @@ CREATE TABLE `public_servants` (
 --
 
 INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
-(123456789, 12, 'financial advisor'),
-(123456789, 16, 'technical engineer'),
+(123456789, 10, 'financial advisor'),
 (144322567, 10, 'technical overseer'),
 (144322567, 11, 'economical overseer'),
-(144322567, 14, 'overseer');
+(144322567, 14, 'overseer'),
+(555123567, 17, 'overseer');
 
 -- --------------------------------------------------------
 
@@ -360,7 +398,7 @@ ALTER TABLE `firms`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `projects`
