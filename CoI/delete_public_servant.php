@@ -1,23 +1,27 @@
 <?php
+include('log.php');
 // Process delete operation after confirmation
-if(isset($_POST["ps_AFM"]) && !empty($_POST["ps_AFM"])){
+if(isset($_POST["ps_AFM"] ) && !empty($_POST["ps_AFM"])&&(isset($_POST["project_id"] ) && !empty($_POST["project_id"]))){
     // Include config file
     require_once "connect.php";
     
     // Prepare a delete statement
-    $sql = "DELETE FROM public_servants WHERE ps_AFM = ?";
+    $sql = "DELETE FROM public_servants WHERE ps_AFM = ? AND project_id = ?";
     
     if($stmt = mysqli_prepare($conn, $sql)){
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "i", $param_ps_AFM);
+        mysqli_stmt_bind_param($stmt, "ii", $param_ps_AFM, $param_project_id);
         
         // Set parameters
         $param_ps_AFM = trim($_POST["ps_AFM"]);
+        $param_project_id = trim($_POST["project_id"]);
         
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Records deleted successfully. Redirect to landing page
-            header("location: view_public_servants_GO.php");
+            $message = "Deleted public servant " . $param_ps_AFM . " assigned on project = " .$project_id . " from database.";
+            logAction($message, $conn);
+            header("location: email_sent_disclose_coi.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";
@@ -34,7 +38,7 @@ else{
     // Check existence of id parameter
     if(empty(trim($_GET["ps_AFM"]))){
         // URL doesn't contain id parameter. Redirect to error page
-        echo("No id parameter");
+        echo("No AFM parameter");
         exit();
     }
 }
@@ -64,10 +68,11 @@ else{
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="alert alert-danger fade in">
                             <input type="hidden" name="ps_AFM" value="<?php echo trim($_GET["ps_AFM"]); ?>"/>
+                            <input type="hidden" name="project_id" value="<?php echo trim($_GET["project_id"]); ?>"/>
                             <p>Are you sure you want to delete this record?</p><br>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="index.php" class="btn btn-default">No</a>
+                                <a href="view_public_servants_GO.php" class="btn btn-default">No</a>
                             </p>
                         </div>
                     </form>

@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
                 $message = "Inserted ". $ps_AFM ." into the public servants table";
                 logAction($message, $conn);
-                header("location:view_public_servants_GO.php");
+                header("location:email_sent.php");
                 exit();
             } else {
                 echo "Public servant is already assigned to this project.";
@@ -110,7 +110,7 @@ include('navbar_GO.php');
                             <span class="help-block"><?php echo $ps_role_err; ?></span>
                         </div>
                         <?php
-                        $sql = "SELECT * FROM projects";
+                        $sql = "SELECT * FROM projects ORDER BY project_name";
                         $result = $conn->query($sql); ?>
                         <div class="form-group <?php echo (!empty($project_id_err)) ? 'has-error' : ''; ?>">
                             <label>Project Name</label>

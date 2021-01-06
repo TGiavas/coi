@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2021 at 07:20 PM
+-- Generation Time: Jan 06, 2021 at 07:21 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -39,9 +39,11 @@ CREATE TABLE `conflicts` (
 --
 
 INSERT INTO `conflicts` (`project_id`, `ps_AFM`, `coi_description`, `status`) VALUES
-(10, 123456789, 'asdf', 'rejected'),
-(10, 144322567, 'wife on firm board', 'approved'),
-(11, 144322567, 'working on team project', 'rejected');
+(10, 123456789, 'asdf', 'approved'),
+(10, 144322567, 'wife on firm board', 'rejected'),
+(11, 144322567, 'working on team project', 'approved'),
+(13, 555123567, 'firm director', 'pending'),
+(15, 157533211, 'on project team', 'approved');
 
 -- --------------------------------------------------------
 
@@ -106,9 +108,7 @@ CREATE TABLE `firm_representatives` (
 
 INSERT INTO `firm_representatives` (`fr_AFM`, `firm_id`) VALUES
 (155432111, 1),
-(156432111, 1),
-(444333111, 1),
-(666343321, 5),
+(156432111, 4),
 (333654745, 25);
 
 -- --------------------------------------------------------
@@ -228,7 +228,43 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (85, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to approved', '2021-01-05 18:18:40'),
 (86, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-05 18:18:41'),
 (87, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-05 18:18:41'),
-(88, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-05 18:19:21');
+(88, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-05 18:19:21'),
+(89, 167222135, '167222135 has logged in.', '2021-01-06 16:21:51'),
+(90, 167222135, 'Inserted 422123666 into the public servants table', '2021-01-06 16:24:03'),
+(91, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-06 16:32:32'),
+(92, 167222135, 'Inserted 123456789 into the public servants table', '2021-01-06 16:33:19'),
+(93, 167222135, 'Inserted 422123666 into the public servants table', '2021-01-06 16:38:26'),
+(94, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-06 16:41:48'),
+(95, 167222135, 'Inserted 422123666 into the public servants table', '2021-01-06 16:47:43'),
+(96, 167222135, 'Inserted 156432111 into the firm representatives table', '2021-01-06 17:08:47'),
+(97, 167222135, '167222135 has logged in.', '2021-01-06 17:17:18'),
+(98, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-06 17:46:23'),
+(99, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-06 17:46:25'),
+(100, 167222135, 'Set conflict with id = 10 ps_AFM 144322567 status to rejected', '2021-01-06 17:46:26'),
+(101, 167222135, 'Set conflict with id = 11 ps_AFM 144322567 status to approved', '2021-01-06 17:46:27'),
+(102, 167222135, '167222135 has logged out.', '2021-01-06 17:48:42'),
+(103, 555444333, '555444333 has logged in.', '2021-01-06 17:49:09'),
+(104, 555444333, 'Inserted 157533211 into the public servants table', '2021-01-06 17:49:27'),
+(105, 555444333, '555444333 has logged out.', '2021-01-06 17:49:40'),
+(106, 157533211, '157533211 has logged in.', '2021-01-06 17:49:56'),
+(107, 157533211, 'Disclosed conflict of interest \"on project team\" for project with id = 15', '2021-01-06 17:50:09'),
+(108, 157533211, '157533211 has logged out.', '2021-01-06 17:50:19'),
+(109, 167222135, '167222135 has logged in.', '2021-01-06 17:50:35'),
+(110, 167222135, 'Set conflict with id = 15 ps_AFM 157533211 status to rejected', '2021-01-06 17:50:41'),
+(111, 167222135, 'Set conflict with id = 15 ps_AFM 157533211 status to approved', '2021-01-06 17:50:43'),
+(112, 167222135, '167222135 has logged out.', '2021-01-06 17:51:05'),
+(113, 555123567, '555123567 has logged in.', '2021-01-06 17:54:13'),
+(114, 555123567, '555123567 has logged out.', '2021-01-06 17:54:17'),
+(115, 167222135, '167222135 has logged in.', '2021-01-06 17:54:27'),
+(116, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-06 17:54:40'),
+(117, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-06 17:55:01'),
+(118, 167222135, '167222135 has logged out.', '2021-01-06 17:55:05'),
+(119, 555123567, '555123567 has logged in.', '2021-01-06 17:55:18'),
+(120, 555123567, 'Disclosed conflict of interest \"firm director\" for project with id = 13', '2021-01-06 17:55:37'),
+(121, 555123567, '555123567 has logged out.', '2021-01-06 18:13:50'),
+(122, 167222135, '167222135 has logged in.', '2021-01-06 18:14:04'),
+(123, 167222135, 'Deleted public servant422123666 assinged on project =  from database.', '2021-01-06 18:16:07'),
+(124, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-06 18:17:15');
 
 -- --------------------------------------------------------
 
@@ -278,11 +314,16 @@ CREATE TABLE `public_servants` (
 --
 
 INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
-(123456789, 10, 'financial advisor'),
+(123456789, 22, 'Financial advisor'),
 (144322567, 10, 'technical overseer'),
 (144322567, 11, 'economical overseer'),
 (144322567, 14, 'overseer'),
-(555123567, 17, 'overseer');
+(144322567, 17, 'overseer'),
+(157533211, 15, 'overseer'),
+(422123666, 16, 'Mechanical Advisor'),
+(422123666, 19, 'technical overseer'),
+(555123567, 13, 'financial advisor'),
+(555123567, 19, 'financial advisor');
 
 -- --------------------------------------------------------
 
@@ -307,6 +348,7 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 (144322567, 'Ioannis Ioannou', '$2y$10$Se6mDR8UeQbNWhDf0I6z1uuDsd0y9SRHmFQ7jlfK78j4QLVVeAg9.', 'PS', '2020-12-03 01:05:22'),
 (155432111, 'Giannis Papadopoulos', '$2y$10$uIQVfiYUos87HBERGdPPyOlJZzFovf4e4bsELtVGSZlKB8xtubNY.', 'FR', '2020-12-02 18:49:59'),
 (156432111, 'Orestis Kanakis', '$2y$10$FeN1bcjnHxb/05JmLseE/.hes1FR1vk9UMGoC5xVNd4GrC/nd8y0q', 'FR', '2020-12-02 19:29:56'),
+(157533211, 'Thomas Lambrou', '$2y$10$ckGg0oguRYVnDEA9vlAAL.TIa0VzAv3gzaq8PnqewHzGTs6DWaaIK', 'PS', '2021-01-06 19:47:34'),
 (167222135, 'Thanos Giannakis', '$2y$10$XJj.JD60361vyy5r8Ke2heHoFmtkT2r.lqoZU.XNAxkOH54nFooZG', 'GO', '2020-12-02 19:32:43'),
 (333654745, 'Giannis Stekas', '$2y$10$LiMFP56Q3BJV/m.bnZdsQOhWMEwcp/6qITto.WAuOCuE5WWzyhdpK', 'FR', '2020-12-15 19:45:16'),
 (422123666, 'Lambros Konstas', '$2y$10$TyV/hTQKFi23SNOoaf3OQO3w/FLOYtyLms06nIyks0TQvmGFB.1GW', 'PS', '2020-12-18 19:28:59'),
@@ -398,7 +440,7 @@ ALTER TABLE `firms`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -415,7 +457,7 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `conflicts`
   ADD CONSTRAINT `conflicts_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
-  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `public_servants` (`ps_AFM`);
+  ADD CONSTRAINT `conflicts_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `users` (`AFM`);
 
 --
 -- Constraints for table `firms_projects`

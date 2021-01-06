@@ -1,27 +1,26 @@
 <?php
 include('log.php');
 // Process delete operation after confirmation
-if(isset($_POST["stakeholder_AFM"] ) && !empty($_POST["stakeholder_AFM"])&&(isset($_POST["project_id"] ) && !empty($_POST["project_id"]))){
+if(isset($_POST["fr_AFM"]) && !empty($_POST["fr_AFM"])){
     // Include config file
     require_once "connect.php";
     
     // Prepare a delete statement
-    $sql = "DELETE FROM firm_stakeholders WHERE stakeholder_AFM = ? AND project_id = ?";
+    $sql = "DELETE FROM firm_representatives WHERE fr_AFM = ?";
     
     if($stmt = mysqli_prepare($conn, $sql)){
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ii", $param_stakeholder_AFM, $param_project_id);
+        mysqli_stmt_bind_param($stmt, "i", $param_fr_AFM);
         
         // Set parameters
-        $param_stakeholder_AFM = trim($_POST["stakeholder_AFM"]);
-        $param_project_id = trim($_POST["project_id"]);
+        $param_fr_AFM = trim($_POST["fr_AFM"]);
         
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Records deleted successfully. Redirect to landing page
-            $message = "Deleted ". $param_stakeholder_AFM ." from the firm stakeholders table";
+            $message = "Deleted ". $param_fr_AFM ." from the firm representatives table";
             logAction($message, $conn);
-            header("location: firm_stakeholders.php");
+            header("location: view_firm_representatives_GO.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";
@@ -36,9 +35,9 @@ if(isset($_POST["stakeholder_AFM"] ) && !empty($_POST["stakeholder_AFM"])&&(isse
 } 
 else{
     // Check existence of id parameter
-    if(empty(trim($_GET["stakeholder_AFM"]))){
+    if(empty(trim($_GET["fr_AFM"]))){
         // URL doesn't contain id parameter. Redirect to error page
-        echo("No AFM parameter");
+        echo("No id parameter");
         exit();
     }
 }
@@ -67,12 +66,11 @@ else{
                     </div>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="alert alert-danger fade in">
-                            <input type="hidden" name="stakeholder_AFM" value="<?php echo trim($_GET["stakeholder_AFM"]); ?>"/>
-                            <input type="hidden" name="project_id" value="<?php echo trim($_GET["project_id"]); ?>"/>
+                            <input type="hidden" name="fr_AFM" value="<?php echo trim($_GET["fr_AFM"]); ?>"/>
                             <p>Are you sure you want to delete this record?</p><br>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="firm_stakeholders.php" class="btn btn-default">No</a>
+                                <a href="view_firm_representatives_GO.php" class="btn btn-default">No</a>
                             </p>
                         </div>
                     </form>

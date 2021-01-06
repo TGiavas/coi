@@ -8,7 +8,7 @@ include('navbar_GO.php')
 <div id="Firms">
     <div class="wrapper-table">
         <div class="page-header clearfix">
-            <h2 class="pull-left">Firm representatives</h2>
+            <h2 class="pull-left">Firms</h2>
         </div>
         <?php
         // Attempt select query execution

@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Records created successfully. Redirect to landing page
                 $message = "Disclosed conflict of interest \"" . $coi_description . "\" for project with id = " .$project_id;
                 logAction($message, $conn);
-                header("location: projects_PS.php");
+                header("location: email_sent_disclose_coi.php");
                 exit();
             } else {
                 echo "Something went wrong. Please try again later.";

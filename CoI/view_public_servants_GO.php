@@ -33,7 +33,7 @@ include('navbar_GO.php');
                     echo "<td>" . $row['name'] . "</td>";
                     echo "<td>" . $row['project_name'] . "</td>";
                     echo "<td>" . $row['ps_role'] . "</td>";
-                    echo "<td><a href='delete_public_servant.php?ps_AFM=" . $row['ps_AFM'] . "' title='Delete Record' data-toggle='tooltip'><i class='fas fa-trash'></i></td> ";
+                    echo "<td><a href='delete_public_servant.php?ps_AFM=$row[ps_AFM]&project_id=$row[project_id]"  .  "' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'>  </span></a>";
                     echo "</td>";
                     echo "</tr>";
                 }
