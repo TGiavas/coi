@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2021 at 07:21 PM
+-- Generation Time: Jan 07, 2021 at 06:26 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -43,7 +43,9 @@ INSERT INTO `conflicts` (`project_id`, `ps_AFM`, `coi_description`, `status`) VA
 (10, 144322567, 'wife on firm board', 'rejected'),
 (11, 144322567, 'working on team project', 'approved'),
 (13, 555123567, 'firm director', 'pending'),
-(15, 157533211, 'on project team', 'approved');
+(15, 157533211, 'on project team', 'rejected'),
+(17, 144322567, 'Director of the firm', 'approved'),
+(19, 555123567, 'my brother is on the firm board', 'pending');
 
 -- --------------------------------------------------------
 
@@ -88,6 +90,7 @@ INSERT INTO `firms_projects` (`firm_id`, `project_id`, `date_applied`) VALUES
 (1, 12, '2021-01-05'),
 (1, 13, '2020-12-29'),
 (1, 14, '2021-01-05'),
+(1, 17, '2021-01-07'),
 (5, 11, '2021-01-05'),
 (5, 14, '2021-01-05');
 
@@ -109,6 +112,7 @@ CREATE TABLE `firm_representatives` (
 INSERT INTO `firm_representatives` (`fr_AFM`, `firm_id`) VALUES
 (155432111, 1),
 (156432111, 4),
+(444333111, 5),
 (333654745, 25);
 
 -- --------------------------------------------------------
@@ -264,7 +268,50 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (121, 555123567, '555123567 has logged out.', '2021-01-06 18:13:50'),
 (122, 167222135, '167222135 has logged in.', '2021-01-06 18:14:04'),
 (123, 167222135, 'Deleted public servant422123666 assinged on project =  from database.', '2021-01-06 18:16:07'),
-(124, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-06 18:17:15');
+(124, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-06 18:17:15'),
+(125, 555123567, '555123567 has logged in.', '2021-01-07 16:27:55'),
+(126, 555123567, 'Disclosed conflict of interest \"my brother is on the firm board\" for project with id = 19', '2021-01-07 16:29:06'),
+(127, 555123567, '555123567 has logged out.', '2021-01-07 16:29:48'),
+(128, 157533211, '157533211 has logged in.', '2021-01-07 16:29:59'),
+(129, 157533211, '157533211 has logged out.', '2021-01-07 16:30:08'),
+(130, 144322567, '144322567 has logged in.', '2021-01-07 16:30:20'),
+(131, 144322567, '144322567 has logged out.', '2021-01-07 16:31:10'),
+(132, 123456789, '123456789 has logged in.', '2021-01-07 16:31:22'),
+(133, 123456789, '123456789 has logged out.', '2021-01-07 16:31:31'),
+(134, 555444333, '555444333 has logged in.', '2021-01-07 16:31:41'),
+(135, 555444333, 'Inserted 157533211 into the public servants table', '2021-01-07 16:32:16'),
+(136, 555444333, 'Deleted public servant 144322567 assigned on project =  from database.', '2021-01-07 16:32:48'),
+(137, 555444333, 'Deleted public servant 144322567 assigned on project =  from database.', '2021-01-07 16:34:50'),
+(138, 555444333, 'Inserted 144322567 into the public servants table', '2021-01-07 16:35:03'),
+(139, 555444333, 'Inserted 123456789 into the public servants table', '2021-01-07 16:35:30'),
+(140, 555444333, 'Inserted 123456789 into the public servants table', '2021-01-07 16:35:49'),
+(141, 555444333, 'Inserted 144322567 into the public servants table', '2021-01-07 16:36:36'),
+(142, 555444333, 'Inserted 157533211 into the public servants table', '2021-01-07 16:39:06'),
+(143, 555444333, 'Inserted 422123666 into the public servants table', '2021-01-07 16:39:32'),
+(144, 555444333, 'Inserted New Roadproject into the projects table', '2021-01-07 16:52:32'),
+(145, 555444333, '555444333 has logged out.', '2021-01-07 16:58:36'),
+(146, 555123567, '555123567 has logged in.', '2021-01-07 16:58:39'),
+(147, 555123567, '555123567 has logged out.', '2021-01-07 16:58:45'),
+(148, 144322567, '144322567 has logged in.', '2021-01-07 16:58:58'),
+(149, 144322567, 'Disclosed conflict of interest \"Director of the firm\" for project with id = 17', '2021-01-07 17:02:08'),
+(150, 144322567, '144322567 has logged out.', '2021-01-07 17:02:35'),
+(151, 555444333, '555444333 has logged in.', '2021-01-07 17:03:06'),
+(152, 555444333, 'Set conflict with id = 15 ps_AFM 157533211 status to approved', '2021-01-07 17:03:54'),
+(153, 555444333, 'Set conflict with id = 15 ps_AFM 157533211 status to rejected', '2021-01-07 17:03:55'),
+(154, 555444333, 'Set conflict with id = 17 ps_AFM 144322567 status to approved', '2021-01-07 17:03:57'),
+(155, 555444333, 'Set conflict with id = 17 ps_AFM 144322567 status to approved', '2021-01-07 17:05:19'),
+(156, 555444333, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-07 17:08:04'),
+(157, 555444333, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-07 17:08:07'),
+(158, 555444333, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-07 17:08:12'),
+(159, 555444333, '555444333 has logged out.', '2021-01-07 17:10:27'),
+(160, 155432111, '155432111 has logged in.', '2021-01-07 17:10:39'),
+(161, 155432111, 'Applied for project 17', '2021-01-07 17:12:07'),
+(162, 155432111, '155432111 has logged out.', '2021-01-07 17:14:39'),
+(163, 167222135, '167222135 has logged in.', '2021-01-07 17:14:51'),
+(164, 167222135, 'Inserted 444333111 into the firm representatives table', '2021-01-07 17:18:44'),
+(165, 167222135, '167222135 has logged in.', '2021-01-07 17:25:35'),
+(166, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-07 17:25:39'),
+(167, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-07 17:25:43');
 
 -- --------------------------------------------------------
 
@@ -295,7 +342,8 @@ INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `pro
 (17, 'Build a new street', '2020-12-15', '2021-05-04', 'Building new street'),
 (18, 'Renovate building', '2020-12-15', '2021-02-24', 'Building Renovation in Athens Center'),
 (19, 'New Cables', '2020-12-18', '2021-06-22', 'Underground cables'),
-(22, 'New Traffic Lights', '2020-12-23', '2021-01-28', 'New Traffic Lights in Athens center');
+(22, 'New Traffic Lights', '2020-12-23', '2021-01-28', 'New Traffic Lights in Athens center'),
+(23, 'New Road', '2021-01-08', '2021-07-15', 'building a new road');
 
 -- --------------------------------------------------------
 
@@ -314,12 +362,17 @@ CREATE TABLE `public_servants` (
 --
 
 INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
+(123456789, 16, 'mechanical advisor'),
+(123456789, 17, 'technical overseer'),
 (123456789, 22, 'Financial advisor'),
-(144322567, 10, 'technical overseer'),
 (144322567, 11, 'economical overseer'),
-(144322567, 14, 'overseer'),
+(144322567, 12, 'Overseer'),
+(144322567, 14, 'financial advisor'),
 (144322567, 17, 'overseer'),
 (157533211, 15, 'overseer'),
+(157533211, 18, 'mechanical advisor'),
+(157533211, 22, 'technical overseer'),
+(422123666, 13, 'communications facilitator'),
 (422123666, 16, 'Mechanical Advisor'),
 (422123666, 19, 'technical overseer'),
 (555123567, 13, 'financial advisor'),
@@ -440,13 +493,13 @@ ALTER TABLE `firms`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables

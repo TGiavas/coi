@@ -109,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </select>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="projects_FR.php" class="btn btn-default">Cancel</a>
+                        <a href="view_firm_representatives_GO.php" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div>

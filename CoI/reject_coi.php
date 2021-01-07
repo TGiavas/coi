@@ -16,7 +16,6 @@ require_once "connect.php";
 
 
 
-        header('Location: conflicts.php');
-
+        header('Location: email_sent_change_coi_status.php');
 
      }

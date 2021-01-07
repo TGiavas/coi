@@ -45,7 +45,7 @@ include('navbar_GO.php');
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
-        echo "<a href='add_public_servant_GO.php' class='submit-button'>Add New Public Servant</a>";
+        echo "<a href='add_public_servant_GO.php' class='submit-button'>Assign public servant to project</a>";
         mysqli_close($conn);
         ?>
         </table>

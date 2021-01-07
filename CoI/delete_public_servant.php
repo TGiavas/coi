@@ -21,7 +21,7 @@ if(isset($_POST["ps_AFM"] ) && !empty($_POST["ps_AFM"])&&(isset($_POST["project_
             // Records deleted successfully. Redirect to landing page
             $message = "Deleted public servant " . $param_ps_AFM . " assigned on project = " .$project_id . " from database.";
             logAction($message, $conn);
-            header("location: email_sent_disclose_coi.php");
+            header("location: view_public_servants_GO.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";

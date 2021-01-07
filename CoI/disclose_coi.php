@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("location: email_sent_disclose_coi.php");
                 exit();
             } else {
-                echo "Something went wrong. Please try again later.";
+                echo "You have already disclosed a conflict for this project";
             }
         }
 
