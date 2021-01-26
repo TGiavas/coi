@@ -8,7 +8,7 @@ include('navbar_GO.php');
 <div id="Public Servants">
     <div class="wrapper-table">
         <div class="page-header clearfix">
-            <h2 class="pull-left">Public Servants</h2>
+            <h2 class="pull-left">Public Servant Assignments</h2>
         </div>
         <?php
         // Attempt select query execution

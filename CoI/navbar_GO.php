@@ -42,7 +42,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     Public Servants
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="view_public_servants_GO.php">View Pulic Servants</a>
+                    <a class="dropdown-item" href="view_public_servants_GO.php">View Pulic Servant Assignements</a>
                     <a class="dropdown-item" href="add_public_servant_GO.php">Assign Public Servant to Project</a>
                 </div>
             </li>

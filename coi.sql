@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2021 at 06:26 PM
+-- Generation Time: Jan 26, 2021 at 06:51 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -44,8 +44,10 @@ INSERT INTO `conflicts` (`project_id`, `ps_AFM`, `coi_description`, `status`) VA
 (11, 144322567, 'working on team project', 'approved'),
 (13, 555123567, 'firm director', 'pending'),
 (15, 157533211, 'on project team', 'rejected'),
+(16, 123456789, 'on firm board', 'approved'),
 (17, 144322567, 'Director of the firm', 'approved'),
-(19, 555123567, 'my brother is on the firm board', 'pending');
+(19, 555123567, 'my brother is on the firm board', 'pending'),
+(24, 144322567, 'on firm board', 'rejected');
 
 -- --------------------------------------------------------
 
@@ -66,6 +68,7 @@ INSERT INTO `firms` (`firm_id`, `firm_name`) VALUES
 (1, 'AKTOR'),
 (4, 'ELGEKA'),
 (5, 'INTRAKAT'),
+(27, 'NEWFIRM'),
 (25, 'TECSOFT');
 
 -- --------------------------------------------------------
@@ -91,8 +94,13 @@ INSERT INTO `firms_projects` (`firm_id`, `project_id`, `date_applied`) VALUES
 (1, 13, '2020-12-29'),
 (1, 14, '2021-01-05'),
 (1, 17, '2021-01-07'),
+(4, 15, '2021-01-11'),
+(4, 16, '2021-01-11'),
+(5, 10, '2021-01-11'),
 (5, 11, '2021-01-05'),
-(5, 14, '2021-01-05');
+(5, 12, '2021-01-11'),
+(5, 14, '2021-01-05'),
+(5, 19, '2021-01-10');
 
 -- --------------------------------------------------------
 
@@ -136,6 +144,7 @@ CREATE TABLE `firm_stakeholders` (
 INSERT INTO `firm_stakeholders` (`stakeholder_AFM`, `stakeholder_name`, `firm_id`, `stakeholder_role`, `project_id`) VALUES
 (133222666, 'Petros Sxinas', 5, 'Project Manager', 11),
 (233145666, 'Pavlos Diogenous', 1, 'Shareholder in the company', 13),
+(534222666, 'Giannis Mitrou', 5, 'Programmer', 11),
 (555111333, 'Giannis Sxinas', 1, 'board director', 10);
 
 -- --------------------------------------------------------
@@ -172,14 +181,10 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (25, 155432111, '155432111 has logged out.', '2020-12-22 14:17:52'),
 (26, 444333111, '444333111 has logged in.', '2020-12-22 14:18:01'),
 (27, 444333111, '444333111 has logged out.', '2020-12-22 14:18:13'),
-(28, 666343321, '666343321 has logged in.', '2020-12-22 14:18:21'),
-(29, 666343321, '666343321 has logged out.', '2020-12-22 14:22:24'),
 (30, 155432111, '155432111 has logged in.', '2020-12-22 14:22:33'),
 (31, 155432111, 'Applied for project 14', '2020-12-22 14:32:20'),
 (32, 155432111, 'Applied for project 11', '2020-12-22 14:55:22'),
 (33, 155432111, '155432111 has logged out.', '2020-12-22 14:56:59'),
-(34, 666343321, '666343321 has logged in.', '2020-12-22 14:57:10'),
-(35, 666343321, 'Applied for project 12', '2020-12-22 14:57:20'),
 (36, 555123567, '555123567 has logged in.', '2020-12-26 13:53:14'),
 (37, 555123567, '555123567 has logged out.', '2020-12-26 13:53:29'),
 (38, 144322567, '144322567 has logged in.', '2020-12-26 13:53:41'),
@@ -211,12 +216,6 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (64, 155432111, 'Applied for project 11', '2021-01-05 17:35:39'),
 (65, 155432111, 'Applied for project 12', '2021-01-05 17:35:50'),
 (66, 155432111, '155432111 has logged out.', '2021-01-05 17:36:00'),
-(67, 666343321, '666343321 has logged in.', '2021-01-05 17:36:17'),
-(68, 666343321, 'Applied for project 11', '2021-01-05 17:39:52'),
-(69, 666343321, 'Applied for project 14', '2021-01-05 17:42:35'),
-(70, 666343321, 'Inserted 567111333 into the stakeholders table', '2021-01-05 17:44:53'),
-(71, 666343321, 'Inserted 133222666 into the stakeholders table', '2021-01-05 17:46:56'),
-(72, 666343321, '666343321 has logged out.', '2021-01-05 17:47:38'),
 (73, 123456789, '123456789 has logged in.', '2021-01-05 17:47:53'),
 (74, 123456789, 'Disclosed conflict of interest \"asdf\" for project with id = 10', '2021-01-05 17:48:05'),
 (75, 123456789, '123456789 has logged out.', '2021-01-05 17:57:48'),
@@ -311,7 +310,86 @@ INSERT INTO `log` (`id`, `user_AFM`, `message`, `created_at`) VALUES
 (164, 167222135, 'Inserted 444333111 into the firm representatives table', '2021-01-07 17:18:44'),
 (165, 167222135, '167222135 has logged in.', '2021-01-07 17:25:35'),
 (166, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to rejected', '2021-01-07 17:25:39'),
-(167, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-07 17:25:43');
+(167, 167222135, 'Set conflict with id = 10 ps_AFM 123456789 status to approved', '2021-01-07 17:25:43'),
+(168, 123456789, '123456789 has logged in.', '2021-01-10 13:47:12'),
+(169, 123456789, 'Disclosed conflict of interest \"on firm board\" for project with id = 16', '2021-01-10 13:47:29'),
+(170, 123456789, '123456789 has logged out.', '2021-01-10 13:47:57'),
+(171, 167222135, '167222135 has logged in.', '2021-01-10 13:48:08'),
+(172, 167222135, 'Set conflict with id = 16 ps_AFM 123456789 status to approved', '2021-01-10 13:48:20'),
+(173, 167222135, 'Deleted public servant 123456789 assigned on project =  from database.', '2021-01-10 13:48:39'),
+(174, 167222135, 'Inserted 123456789 into the public servants table', '2021-01-10 13:48:57'),
+(175, 167222135, '167222135 has logged out.', '2021-01-10 13:49:05'),
+(176, 123456789, '123456789 has logged in.', '2021-01-10 13:49:13'),
+(177, 123456789, '123456789 has logged out.', '2021-01-10 13:49:29'),
+(178, 167222135, '167222135 has logged in.', '2021-01-10 13:49:41'),
+(179, 167222135, 'Inserted asdfsadf into the firms table.', '2021-01-10 13:51:11'),
+(180, 167222135, '167222135 has logged out.', '2021-01-10 13:51:36'),
+(181, 444333111, '444333111 has logged in.', '2021-01-10 13:51:55'),
+(182, 444333111, 'Applied for project 19', '2021-01-10 13:52:02'),
+(183, 444333111, 'Inserted 432786555 into the stakeholders table', '2021-01-10 13:53:00'),
+(184, 444333111, 'Deleted 432786555 from the firm stakeholders table', '2021-01-10 13:53:05'),
+(185, 444333111, 'Inserted 534222666 into the stakeholders table', '2021-01-10 13:53:24'),
+(186, 444333111, '444333111 has logged out.', '2021-01-10 14:02:32'),
+(187, 555444333, '555444333 has logged in.', '2021-01-10 14:02:35'),
+(188, 167222135, '167222135 has logged in.', '2021-01-11 13:06:30'),
+(189, 167222135, '167222135 has logged out.', '2021-01-11 13:06:44'),
+(190, 167222135, '167222135 has logged in.', '2021-01-11 13:07:47'),
+(191, 167222135, '167222135 has logged out.', '2021-01-11 13:09:59'),
+(192, 167222135, '167222135 has logged in.', '2021-01-11 13:10:18'),
+(193, 167222135, '167222135 has logged out.', '2021-01-11 13:15:26'),
+(194, 155432111, '155432111 has logged in.', '2021-01-11 13:15:29'),
+(195, 155432111, '155432111 has logged out.', '2021-01-11 13:15:48'),
+(196, 155432111, '155432111 has logged in.', '2021-01-11 13:17:42'),
+(197, 155432111, '155432111 has logged out.', '2021-01-11 13:20:39'),
+(198, 167222135, '167222135 has logged in.', '2021-01-11 13:21:01'),
+(199, 167222135, '167222135 has logged out.', '2021-01-11 13:21:25'),
+(202, 167222135, '167222135 has logged in.', '2021-01-11 13:22:15'),
+(204, 167222135, '167222135 has logged out.', '2021-01-11 13:22:48'),
+(207, 167222135, '167222135 has logged in.', '2021-01-11 13:29:26'),
+(208, 167222135, 'Inserted Renovate public squareproject into the projects table', '2021-01-11 13:30:16'),
+(209, 167222135, 'Inserted 144322567 into the public servants table', '2021-01-11 13:30:59'),
+(210, 167222135, '167222135 has logged out.', '2021-01-11 13:31:03'),
+(211, 144322567, '144322567 has logged in.', '2021-01-11 13:31:17'),
+(212, 144322567, 'Disclosed conflict of interest \"on firm board\" for project with id = 24', '2021-01-11 13:31:26'),
+(213, 144322567, '144322567 has logged out.', '2021-01-11 13:31:28'),
+(214, 144322567, '144322567 has logged in.', '2021-01-11 13:31:37'),
+(215, 144322567, '144322567 has logged out.', '2021-01-11 13:31:47'),
+(216, 167222135, '167222135 has logged in.', '2021-01-11 13:31:50'),
+(217, 167222135, 'Set conflict with id = 24 ps_AFM 144322567 status to rejected', '2021-01-11 13:31:55'),
+(218, 167222135, 'Deleted public servant 123456789 assigned on project =  from database.', '2021-01-11 13:34:09'),
+(219, 167222135, '167222135 has logged out.', '2021-01-11 13:43:38'),
+(237, 156432111, '156432111 has logged in.', '2021-01-11 13:59:23'),
+(238, 444333111, '444333111 has logged in.', '2021-01-11 14:01:10'),
+(239, 444333111, '444333111 has logged in.', '2021-01-11 14:02:30'),
+(240, 444333111, '444333111 has logged out.', '2021-01-11 14:02:59'),
+(241, 444333111, '444333111 has logged in.', '2021-01-11 14:03:05'),
+(242, 444333111, '444333111 has logged out.', '2021-01-11 14:03:31'),
+(243, 444333111, '444333111 has logged in.', '2021-01-11 14:03:35'),
+(244, 444333111, 'Applied for project 10', '2021-01-11 14:05:04'),
+(245, 444333111, 'Applied for project 12', '2021-01-11 14:05:33'),
+(246, 444333111, '444333111 has logged out.', '2021-01-11 14:11:41'),
+(247, 167222135, '167222135 has logged in.', '2021-01-11 14:12:14'),
+(248, 167222135, 'Inserted NEWFIRM into the firms table.', '2021-01-11 14:12:35'),
+(249, 167222135, 'Inserted 1236566777 into the firm representatives table', '2021-01-11 14:13:38'),
+(250, 167222135, 'Deleted 1236566777 from the firm representatives table', '2021-01-11 14:13:44'),
+(251, 167222135, 'Inserted 1236566777 into the firm representatives table', '2021-01-11 14:14:01'),
+(252, 167222135, '167222135 has logged out.', '2021-01-11 14:14:05'),
+(253, 1236566777, '1236566777 has logged in.', '2021-01-11 14:14:15'),
+(254, 1236566777, '1236566777 has logged out.', '2021-01-11 14:14:19'),
+(255, 156432111, '156432111 has logged in.', '2021-01-11 14:14:35'),
+(256, 156432111, 'Applied for project 15', '2021-01-11 14:15:07'),
+(257, 156432111, 'Applied for project 16', '2021-01-11 14:15:25'),
+(258, 156432111, 'Inserted 166333222 into the stakeholders table', '2021-01-11 14:15:39'),
+(259, 156432111, 'Deleted 166333222 from the firm stakeholders table', '2021-01-11 14:15:43'),
+(260, 1236566777, '1236566777 has logged in.', '2021-01-11 15:04:54'),
+(261, 1236566777, '1236566777 has logged out.', '2021-01-11 15:04:59'),
+(262, 167222135, '167222135 has logged in.', '2021-01-11 15:05:11'),
+(263, 167222135, 'Deleted 1236566777 from the firm representatives table', '2021-01-11 15:05:19'),
+(264, 167222135, '167222135 has logged out.', '2021-01-11 15:05:20'),
+(265, 1236566777, '1236566777 has logged in.', '2021-01-11 15:05:30'),
+(266, 167222135, '167222135 has logged in.', '2021-01-26 17:48:03'),
+(267, 167222135, 'Inserted 555123567 into the public servants table', '2021-01-26 17:50:11'),
+(268, 167222135, 'Deleted public servant 555123567 assigned on project =  from database.', '2021-01-26 17:50:18');
 
 -- --------------------------------------------------------
 
@@ -343,7 +421,8 @@ INSERT INTO `projects` (`project_id`, `project_name`, `project_start_date`, `pro
 (18, 'Renovate building', '2020-12-15', '2021-02-24', 'Building Renovation in Athens Center'),
 (19, 'New Cables', '2020-12-18', '2021-06-22', 'Underground cables'),
 (22, 'New Traffic Lights', '2020-12-23', '2021-01-28', 'New Traffic Lights in Athens center'),
-(23, 'New Road', '2021-01-08', '2021-07-15', 'building a new road');
+(23, 'New Road', '2021-01-08', '2021-07-15', 'building a new road'),
+(24, 'Renovate public square', '2021-01-12', '2021-02-24', 'renovate public square');
 
 -- --------------------------------------------------------
 
@@ -362,13 +441,13 @@ CREATE TABLE `public_servants` (
 --
 
 INSERT INTO `public_servants` (`ps_AFM`, `project_id`, `ps_role`) VALUES
-(123456789, 16, 'mechanical advisor'),
 (123456789, 17, 'technical overseer'),
 (123456789, 22, 'Financial advisor'),
 (144322567, 11, 'economical overseer'),
 (144322567, 12, 'Overseer'),
 (144322567, 14, 'financial advisor'),
 (144322567, 17, 'overseer'),
+(144322567, 24, 'technical overseer'),
 (157533211, 15, 'overseer'),
 (157533211, 18, 'mechanical advisor'),
 (157533211, 22, 'technical overseer'),
@@ -408,7 +487,7 @@ INSERT INTO `users` (`AFM`, `name`, `password`, `user_type`, `created_at`) VALUE
 (444333111, 'Ilias Petrou', '$2y$10$MMgkooPsa1cUQ1cABB8fFuAX3T4KIKzBLxG9XAO8E/4DLb31Al6o.', 'FR', '2020-12-15 19:43:57'),
 (555123567, 'Takis Bougas', '$2y$10$BB91J798m27lYFECAwrl3OqIUtdV8bjryO1YP0KQGvMgKfRnnnmsa', 'PS', '2020-12-16 17:10:17'),
 (555444333, 'George Efremoglou', '$2y$10$omH9lAXWSz3ewai6HDFTe.QET2FyMrrtvNmtBC3iXYzzjmwfUvZQO', 'GO', '2020-12-15 18:22:23'),
-(666343321, 'Petros Rousos', '$2y$10$eDNznYwDlJYTqgrx6yuHoeydhwBFIgZMpG6kBtwgdftqnHP74xLcq', 'FR', '2020-12-15 19:28:29');
+(1236566777, 'New FR', '$2y$10$OE6xL4iWpA0dzQw5r/MuF.zvmRpHnaObyve4U9W55w9jHUVOuvBry', 'FR', '2021-01-11 16:13:12');
 
 --
 -- Indexes for dumped tables
@@ -470,7 +549,8 @@ ALTER TABLE `projects`
 -- Indexes for table `public_servants`
 --
 ALTER TABLE `public_servants`
-  ADD PRIMARY KEY (`ps_AFM`,`project_id`);
+  ADD PRIMARY KEY (`ps_AFM`,`project_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `users`
@@ -487,19 +567,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `firms`
 --
 ALTER TABLE `firms`
-  MODIFY `firm_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `firm_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `project_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
@@ -537,7 +617,14 @@ ALTER TABLE `firm_stakeholders`
 -- Constraints for table `log`
 --
 ALTER TABLE `log`
-  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`user_AFM`) REFERENCES `users` (`AFM`);
+  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`user_AFM`) REFERENCES `users` (`AFM`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `public_servants`
+--
+ALTER TABLE `public_servants`
+  ADD CONSTRAINT `public_servants_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`),
+  ADD CONSTRAINT `public_servants_ibfk_2` FOREIGN KEY (`ps_AFM`) REFERENCES `users` (`AFM`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
